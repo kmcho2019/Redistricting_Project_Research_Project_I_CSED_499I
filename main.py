@@ -3,6 +3,8 @@ from networkx.algorithms import community
 import matplotlib.pyplot as plt
 import pymetis
 import numpy as np
+import random
+import bisect
 
 '''
 #General Algorithm
@@ -86,6 +88,36 @@ def gen_init_part(G: nx.Graph(), n: int) -> list:
         #print(node_temp_list)
         partition_node_list.append(node_temp_list)
     return partition_node_list
+
+#Take graph (G) and partion node list and return switch one node from one partition to neighboring partition when valid
+# select another node randomly if switch turns out to be invalid(i.e. breaks connection of partition)
+def random_switch(G: nx.Graph(), partition_node_list: list) -> list:
+    while True:
+        new_switched_partition_node_list = partition_node_list.copy() # make full copy of node list
+        random_partition_num = random.randint(0,len(partition_node_list)-1) # select random partition to switch from
+        boundary_edge_list = nx.edge_boundary(G, partition_node_list[random_partition_num]) # boundary edges of partition
+        random_boundary_edge_pair = random.randint(0,len(boundary_edge_list)-1) # first node is in current partition num second node is partner
+        #find partner partition to switch to
+        partner_partition_num = 0
+        for kth_partition in new_switched_partition_node_list:
+            if random_boundary_edge_pair[1] in kth_partition:
+                break
+            else:
+                partner_partition_num = partner_partition_num + 1
+        #switch between the two random_boundary_edge_pair nodes
+        new_switched_partition_node_list[random_partition_num].remove(random_boundary_edge_pair[0])
+        bisect.insort(new_switched_partition_node_list[random_partition_num], random_boundary_edge_pair[1]) # used bisect as list is already sorted
+        new_switched_partition_node_list[partner_partition_num].remove(random_boundary_edge_pair[1])
+        bisect.insort(new_switched_partition_node_list[partner_partition_num], random_boundary_edge_pair[0])
+
+        #Check if the new partitions are valided(they should be connected)
+        part_0 = G.subgraph(new_switched_partition_node_list[random_partition_num])
+        part_1 = G.subgraph(new_switched_partition_node_list[partner_partition_num])
+        fst_part_connect_state = nx.is_connected(part_0)
+        snd_part_connect_state = nx.is_connected(part_1)
+        if(fst_part_connect_state and snd_part_connect_state): # if both connect state is true (when partition is still connected)
+            break   #exit loop
+    return new_switched_partition_node_list
 
 
 H = nxn_square_graph_gen(5)
