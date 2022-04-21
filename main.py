@@ -366,7 +366,7 @@ def get_color_map_from_dict(input_dict):
 
 # Calculate result of one district add the all the nodes up into tuple form result
 # (partition_pop, partition_vote, partition_party_1_vote, partition_party_2_vote, district_winner, wasated_vote
-# Output: (part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, wasted_vote)
+# Output: (part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, party_1_wasted_vote, party_2_wasted_vote)
 def calculate_part_result(G: nx.Graph, node_list: list):
     part_pop = 0
     part_vote = 0
@@ -374,7 +374,9 @@ def calculate_part_result(G: nx.Graph, node_list: list):
     part_party_2_vote = 0
     part_party_3_vote = 0
     district_winner = 0
-    wasted_vote = 0  # wasted vote by party1 is (+) while wasted vote by party2 is (-)
+    #wasted_vote = 0  # wasted vote by party1 is (+) while wasted vote by party2 is (-)
+    party_1_wasted_vote = 0
+    party_2_wasted_vote = 0
     for node_num in node_list:
         part_pop = part_pop + G.nodes[node_num][Dict_Trait.pop]
         part_vote = part_vote + G.nodes[node_num][Dict_Trait.total_votes]
@@ -383,15 +385,20 @@ def calculate_part_result(G: nx.Graph, node_list: list):
         part_party_3_vote = part_party_3_vote + G.nodes[node_num][Dict_Trait.party_3]
     if part_party_1_vote > part_party_2_vote and part_party_1_vote > part_party_3_vote:
         district_winner = 1
-        if (part_party_1_vote > part_party_2_vote):
-            wasted_vote = wasted_vote - part_party_2_vote
+        party_1_wasted_vote = max(part_party_1_vote-(int(part_vote/2)+1),0)
+        party_2_wasted_vote = part_party_2_vote
+        #wasted_vote = wasted_vote - part_party_2_vote
     elif part_party_2_vote > part_party_1_vote and part_party_2_vote > part_party_3_vote:
         district_winner = 2
-        if (part_party_2_vote > part_party_1_vote):
-            wasted_vote = wasted_vote + part_party_1_vote
+        party_2_wasted_vote = max(part_party_2_vote-(int(part_vote/2)+1),0)
+        party_1_wasted_vote = part_party_1_vote
+        #wasted_vote = wasted_vote + part_party_1_vote
     elif part_party_3_vote > part_party_2_vote and part_party_3_vote > part_party_1_vote:
         district_winner = 3
-    return (part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, wasted_vote)
+        party_1_wasted_vote = part_party_1_vote
+        party_2_wasted_vote = part_party_2_vote
+
+    return (part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, party_1_wasted_vote, party_2_wasted_vote)
 
 
 # Calculate election result of graph with the input partition configuration
@@ -434,10 +441,10 @@ def calculate_graph_result(G: nx.Graph(), partition_node_list: list, print_distr
         elif (tuples[4] == 3):
             party_3_district_won = party_3_district_won + 1
 
-        if (tuples[5] > 0):
-            party_1_wasted_vote = party_1_wasted_vote + tuples[5]
-        elif (tuples[5] < 0):
-            party_2_wasted_vote = party_2_wasted_vote + abs(tuples[5])
+        party_1_wasted_vote = party_1_wasted_vote + tuples[5]
+        party_2_wasted_vote = party_2_wasted_vote + tuples[6]
+
+
 
     pop_avg = statistics.mean(pop_list)
     pop_variance = statistics.variance(pop_list)
@@ -446,7 +453,7 @@ def calculate_graph_result(G: nx.Graph(), partition_node_list: list, print_distr
             party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap)
 
 
-def print_district_result(part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, wasted_vote):
+def print_district_result(part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, party_1_wasted_vote, party_2_wasted_vote):
     percentage1 = (part_party_1_vote / part_vote) * 100
     percentage2 = (part_party_2_vote / part_vote) * 100
     print('District Result')
@@ -455,7 +462,8 @@ def print_district_result(part_pop, part_vote, part_party_1_vote, part_party_2_v
     print('Total Party1 Vote: ', part_party_1_vote, ' (', percentage1, '%)')
     print('Total Party2 Vote: ', part_party_2_vote, ' (', percentage2, '%)')
     print('District Winner: ', district_winner)
-    print('Wasted Votes: ', wasted_vote)
+    print('Party 1 Wasted Votes: ', party_1_wasted_vote)
+    print('Party 2 Wasted Votes: ', party_2_wasted_vote)
 
 
 def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won,
@@ -478,6 +486,20 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
     print('Efficiency Gap: ', graph_efficiency_gap, '(%) (Negative values favor Party1 while positive values favor '
                                                     'Party2.)')
 
+
+# Run eat_random_node() to generate next state and compare between current and next states.
+# If coomputed score is better adopt next state if not only adopt with probability of exp(score_diff/Temp)
+# Output either input list(if no change) or changed list
+# Use for Monte CArlo Simulated Annealing Algorithm
+def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: float) -> list:
+    next_part_state = eat_random_node(G, current_part_state)
+    next_state_score = compute_state_score(G, next_part_state)
+    pass
+
+def compute_state_score(G: nx.Graph(), state_part_list: list) -> float:
+    (efficiency_gap ,pop_variance) = (0,0)
+    (_, _, _, _, _, _, _, _, pop_variance, _, _, graph_efficiency_gap) = calculate_graph_result(G,state_part_list)
+    return pop_variance + abs(graph_efficiency_gap)
 
 print(type(Dict_Trait.name))
 Dict_format = dict(
@@ -546,14 +568,15 @@ config4 = [[0, 1, 2, 3, 4, 7, 8, 9, 13, 14],
            [20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
            [30, 31, 32, 33, 34, 37, 38, 39, 43, 44],
            [35, 36, 40, 41, 42, 45, 46, 47, 48, 49]]
+print_district_by_district_result = False
 print('\nConfig1\n')
-print_graph_result(*(calculate_graph_result(G, config1, print_district_by_district_result=False)))
+print_graph_result(*(calculate_graph_result(G, config1, print_district_by_district_result)))
 print('\nConfig2\n')
-print_graph_result(*(calculate_graph_result(G, config2, print_district_by_district_result=False)))
+print_graph_result(*(calculate_graph_result(G, config2, print_district_by_district_result)))
 print('\nConfig3\n')
-print_graph_result(*(calculate_graph_result(G, config3, print_district_by_district_result=False)))
+print_graph_result(*(calculate_graph_result(G, config3, print_district_by_district_result)))
 print('\nConfig4\n')
-print_graph_result(*(calculate_graph_result(G, config4, print_district_by_district_result=False)))
+print_graph_result(*(calculate_graph_result(G, config4, print_district_by_district_result)))
 
 config1_test = list(set().union(config1[0], config1[1], config1[2], config1[3], config1[4]))
 config2_test = list(set().union(config2[0], config2[1], config2[2], config2[3], config2[4]))
@@ -624,8 +647,7 @@ nx.draw(sub_graph_2_, with_labels=True)
 plt.show()
 '''
 
-#print(state)
-
+# print(state)
 
 
 '''
