@@ -176,8 +176,9 @@ def random_switch(G: nx.Graph(), partition_node_list: list) -> (list, bool):
 # Take graph (G) and partion node list and return eat one node from one neighboring partition to neighboring partition
 # when valid
 # select another node randomly if eat turns out to be invalid(i.e. breaks connection of partition)
-def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
-    print('\n\n')
+def eat_random_node(G: nx.Graph(), partition_node_list: list, debug_print_mode = False) -> (list, bool):
+    if debug_print_mode:
+        print('\n\n')
     is_eat_true = False
     is_node_list_changed = False
     return_list = []
@@ -221,22 +222,26 @@ def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
     #print('Type;!')
     #print(type(new_switched_partition_node_list[random_partition_num]))
     # Use numpy functions instead of list when operating on this.
-    print('Boundary Edge: ', random_boundary_edge_pair)
-    print('Original Random Partition: ', new_switched_partition_node_list[random_partition_num])
-    print('Original Partner Partition: ', new_switched_partition_node_list[partner_partition_num])
-    print('Partition Numbers (Random, Partner)', random_partition_num,partner_partition_num)
+    if debug_print_mode:
+        print('Boundary Edge: ', random_boundary_edge_pair)
+        print('Original Random Partition: ', new_switched_partition_node_list[random_partition_num])
+        print('Original Partner Partition: ', new_switched_partition_node_list[partner_partition_num])
+        print('Partition Numbers (Random, Partner)', random_partition_num,partner_partition_num)
     # random_partition_num partition will eat the entirety of boundary edge pair nodes
     # index_loc_0 = np.where(new_switched_partition_node_list[random_partition_num] == random_boundary_edge_pair[0])
     index_loc_1 = np.where(new_switched_partition_node_list[partner_partition_num] == random_boundary_edge_pair[1])
-    print(index_loc_1)
+    if debug_print_mode:
+        print(index_loc_1)
     index_loc_1 = 0
     for ele in new_switched_partition_node_list[partner_partition_num]:
         if ele == random_boundary_edge_pair[1]:
             break
         else:
             index_loc_1 = index_loc_1 + 1
-    print(index_loc_1)
-    print('Index Number of Edge Node in Partner Partition: ', index_loc_1)
+
+    if debug_print_mode:
+        print(index_loc_1)
+        print('Index Number of Edge Node in Partner Partition: ', index_loc_1)
     #print(len(index_loc_1))
     # delete from partner partition (random_boundary_edge_pair[1])
     new_switched_partition_node_list[partner_partition_num] = np.delete(
@@ -245,8 +250,9 @@ def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
     new_switched_partition_node_list[random_partition_num] = np.append(
         new_switched_partition_node_list[random_partition_num], random_boundary_edge_pair[1])
     # new_switched_partition_node_list[random_partition_num][index_loc_0], new_switched_partition_node_list[partner_partition_num][index_loc_1] = new_switched_partition_node_list[partner_partition_num][index_loc_1], new_switched_partition_node_list[random_partition_num][index_loc_0]
-    print('New Random Partition: ', new_switched_partition_node_list[random_partition_num])
-    print('New Partner Partition: ', new_switched_partition_node_list[partner_partition_num])
+    if debug_print_mode:
+        print('New Random Partition: ', new_switched_partition_node_list[random_partition_num])
+        print('New Partner Partition: ', new_switched_partition_node_list[partner_partition_num])
     # Check if the new partitions are valid(they should be connected)
     part_0 = G.subgraph(new_switched_partition_node_list[random_partition_num])
     part_1 = G.subgraph(new_switched_partition_node_list[partner_partition_num])
@@ -255,10 +261,11 @@ def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
     # Is length maintained?
     new_random_part_len = len(new_switched_partition_node_list[random_partition_num])
     new_partner_part_len = len(new_switched_partition_node_list[partner_partition_num])
-    print('Original Random Part Length: ', random_part_original_len)
-    print('Original Partner Part Length: ', partner_part_original_len)
-    print('New Random Part Length: ', new_random_part_len)
-    print('New Partner Part Length: ', new_partner_part_len)
+    if debug_print_mode:
+        print('Original Random Part Length: ', random_part_original_len)
+        print('Original Partner Part Length: ', partner_part_original_len)
+        print('New Random Part Length: ', new_random_part_len)
+        print('New Partner Part Length: ', new_partner_part_len)
     if(new_random_part_len + new_partner_part_len == random_part_original_len + partner_part_original_len):
         is_len_valid = True
     else:
@@ -276,11 +283,13 @@ def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
     else:
         is_eat_true = False
         return_list = partition_node_list
-    if(is_eat_true):
-        print('Eat Valid')
-    else:
-        print('Eat Invalid')
-        print('1st Connect, 2nd Connect, List Change, Length Validity:', fst_part_connect_state, snd_part_connect_state, is_node_list_changed, is_len_valid)
+
+    if debug_print_mode:
+        if(is_eat_true):
+            print('Eat Valid')
+        else:
+            print('Eat Invalid')
+            print('1st Connect, 2nd Connect, List Change, Length Validity:', fst_part_connect_state, snd_part_connect_state, is_node_list_changed, is_len_valid)
     return return_list, is_eat_true
 
 
@@ -422,6 +431,7 @@ def calculate_graph_result(G: nx.Graph(), partition_node_list: list, print_distr
     party_1_wasted_vote = 0
     party_2_wasted_vote = 0
     graph_efficiency_gap = 0.  # party_1_wasted_vote-party_2_wasted_vote/graph_vote # (-) favors party1 (+) favors
+    tied_districts = 0
     # party2
     part_result_list = []
     pop_list = []
@@ -444,6 +454,10 @@ def calculate_graph_result(G: nx.Graph(), partition_node_list: list, print_distr
             party_2_district_won = party_2_district_won + 1
         elif (tuples[4] == 3):
             party_3_district_won = party_3_district_won + 1
+        else:
+            print('Ties')
+            tied_districts = tied_districts + 1
+            print(tuples)
 
         party_1_wasted_vote = party_1_wasted_vote + tuples[5]
         party_2_wasted_vote = party_2_wasted_vote + tuples[6]
@@ -454,7 +468,7 @@ def calculate_graph_result(G: nx.Graph(), partition_node_list: list, print_distr
     pop_variance = statistics.variance(pop_list)
     graph_efficiency_gap = ((party_1_wasted_vote - party_2_wasted_vote) / graph_vote) * 100  # percentage
     return (graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won, party_2_district_won,
-            party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap)
+            party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap,tied_districts)
 
 
 def print_district_result(part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, party_1_wasted_vote, party_2_wasted_vote):
@@ -472,7 +486,7 @@ def print_district_result(part_pop, part_vote, part_party_1_vote, part_party_2_v
 
 def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won,
                        party_2_district_won, party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote,
-                       party_2_wasted_vote, graph_efficiency_gap):
+                       party_2_wasted_vote, graph_efficiency_gap,tied_districts):
     percentage1 = (graph_party_1_vote / graph_vote) * 100
     percentage2 = (graph_party_2_vote / graph_vote) * 100
     print('Graph(Province) Result')
@@ -485,6 +499,7 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
     print('Party1 Districts: ', party_1_district_won)
     print('Party2 Districts: ', party_2_district_won)
     print('Party3 Districts: ', party_3_district_won)
+    print('Tied Districts: ', tied_districts)
     print('Party1 Wasted Votes: ', party_1_wasted_vote)
     print('Party2 Wasted Votes: ', party_2_wasted_vote)
     print('Efficiency Gap: ', graph_efficiency_gap, '(%) (Negative values favor Party1 while positive values favor '
@@ -499,24 +514,64 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
     next_part_state,eat_validity = eat_random_node(G, current_part_state)
     next_state_score = compute_state_score(G, next_part_state)
     score_delta = next_state_score - current_state_score
+
     if(score_delta > 0): #next state is improvement
         output_state = next_part_state
         output_score = next_state_score
+
+        print('\n')
+        print('State Improved')
+        print('Temperature: ', current_temp)
+        print('Current Score: ', current_state_score)
+        print('Next Score: ', next_state_score)
+        print('\n')
     else: #next state is not an improvement
         probability = math.exp(score_delta/current_temp)
-        if(probability < random.random()): #move to next state even if it is worst under probability
+        if(random.random() <probability): #move to next state even if it is worst under probability
             output_state = next_part_state
             output_score = next_state_score
+            print('\n')
+            print('State Not Improved Move Anyway', probability)
+            print('Temperature: ', current_temp)
+            print('Current Score: ', current_state_score)
+            print('Next Score: ', next_state_score)
+            print('Probability: ', probability)
+            print('\n')
         else:
             output_state = current_part_state
             output_score = current_state_score
+            print('\n')
+            print('State Not Improved Do Not Move')
+            print('Temperature: ', current_temp)
+            print('Current Score: ', current_state_score)
+            print('Next Score: ', next_state_score)
+            print('Probability: ', probability)
+            print('\n')
     return output_state,output_score
 
-def compute_state_score(G: nx.Graph(), state_part_list: list) -> float:
+def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_weight = 0.8) -> float:
     (efficiency_gap ,pop_variance) = (0,0)
-    (_, _, _, _, _, _, _, _, pop_variance, _, _, graph_efficiency_gap) = calculate_graph_result(G,state_part_list)
-    val = -(pop_variance + abs(graph_efficiency_gap)) #simple placeholder function
+    (_, _, _, _, _, _, _, pop_avg, pop_variance, _, _, graph_efficiency_gap,_) = calculate_graph_result(G,state_part_list)
+    pop_portion = 100*(1-math.exp(-(pop_variance/(9*pop_avg)))) * pop_distribute_weight
+    partisan_portion = efficiency_gap * (1-pop_distribute_weight)
+    val = 5000*math.exp(-0.131*(pop_portion+partisan_portion))
+    #val = max((pop_variance + abs(graph_efficiency_gap)),0.1) #simple placeholder function
+    #val = 100/val
     return val
+
+def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 100):
+    result_list = []
+    initial_score = compute_state_score(G,partition_node_list)
+    start_temp = 10000 # Temperature always starts at 10000
+    epoch_num = int(start_temp/step_size)
+    # temp function Temp = 1000/(time^alpha + 1) (T:10000 ->0.01 as time goes on)
+    alpha = 6/(math.log10(epoch_num))
+    result_list,score = anneal_step(G,partition_node_list,initial_score,start_temp)
+    for time in range(epoch_num):
+        current_temp = start_temp/((time**alpha) + 1)
+        result_list, score = anneal_step(G, result_list, score, current_temp)
+        #result_list,score = anneal_step(G, result_list, score,start_temp-step_size*time)
+    return result_list
 
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
@@ -641,7 +696,6 @@ result,score = anneal_step(G, config1, initial_score, 1000)
 print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
 print('Score Start: ', score)
 
-'''
 for x in range(1000):
     result,score =  anneal_step(G,result, score,1000-x)
     if(x %100 == 0):
@@ -650,9 +704,27 @@ for x in range(1000):
         print(print_graph_result(*(calculate_graph_result(G, result, print_district_by_district_result))))
         l = list(set().union(result[0], result[1], result[2], result[3], result[4]))
         print(l, len(l))
+        print('Current Score: ',score)
 
 l = list(set().union(result[0],result[1],result[2],result[3],result[4]))
 print(l, len(l))
 print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
 print('Score Final:', score)
-'''
+print_node_list(result)
+
+result_example = [[ 0,  1,  2,  3,  4,  5,  6,  8,  9, 10],
+            [ 7, 11, 12, 13, 14, 18, 19, 23, 24, 29],
+            [15, 16, 17, 20, 21, 22, 25, 26, 27, 32],
+            [30, 31, 35, 36, 40, 41, 42, 43, 45, 46],
+            [28, 33, 34, 37, 38, 39, 44, 47, 48, 49]
+            ]
+print(print_graph_result(*(calculate_graph_result(G,result_example, print_district_by_district_result))))
+for line in result_example:
+    print(nx.is_connected(G.subgraph(line)))
+
+init_part = gen_init_part(G,5)
+print_node_list(init_part)
+l = graph_simulated_annealing(G,init_part)
+print(print_graph_result(*(calculate_graph_result(G,l, print_district_by_district_result))))
+print_node_list(l)
+print_node_list(init_part)
