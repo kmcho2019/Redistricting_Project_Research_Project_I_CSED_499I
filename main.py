@@ -7,6 +7,7 @@ import random
 import copy
 import enum
 import statistics
+import math
 
 '''
 #General Algorithm
@@ -472,9 +473,9 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
     percentage1 = (graph_party_1_vote / graph_vote) * 100
     percentage2 = (graph_party_2_vote / graph_vote) * 100
     print('Graph(Province) Result')
-    print('Total District Population: ', graph_pop)
-    print('Average District Population: ', pop_avg)
-    print('Variance of District Population: ', pop_variance)
+    print('Total Graph(Province) Population: ', graph_pop)
+    print('Average Graph(Province) Population: ', pop_avg)
+    print('Variance of Graph(Province) Population: ', pop_variance)
     print('Total Vote: ', graph_vote)
     print('Total Party1 Vote: ', graph_party_1_vote, ' (', percentage1, '%)')
     print('Total Party2 Vote: ', graph_party_2_vote, ' (', percentage2, '%)')
@@ -488,18 +489,31 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
 
 
 # Run eat_random_node() to generate next state and compare between current and next states.
-# If coomputed score is better adopt next state if not only adopt with probability of exp(score_diff/Temp)
+# If computed score is better adopt next state if not only adopt with probability of exp(score_diff/Temp)
 # Output either input list(if no change) or changed list
 # Use for Monte CArlo Simulated Annealing Algorithm
-def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: float) -> list:
-    next_part_state = eat_random_node(G, current_part_state)
+def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: float, current_temp: float) -> list:
+    next_part_state,eat_validity = eat_random_node(G, current_part_state)
     next_state_score = compute_state_score(G, next_part_state)
-    pass
+    score_delta = next_state_score - current_state_score
+    if(score_delta > 0): #next state is improvement
+        output_state = next_part_state
+        output_score = next_state_score
+    else: #next state is not an improvement
+        probability = math.exp(score_delta/current_temp)
+        if(probability < random.random()): #move to next state even if it is worst under probability
+            output_state = next_part_state
+            output_score = next_state_score
+        else:
+            output_state = current_part_state
+            output_score = current_state_score
+    return output_state,output_score
 
 def compute_state_score(G: nx.Graph(), state_part_list: list) -> float:
     (efficiency_gap ,pop_variance) = (0,0)
     (_, _, _, _, _, _, _, _, pop_variance, _, _, graph_efficiency_gap) = calculate_graph_result(G,state_part_list)
-    return pop_variance + abs(graph_efficiency_gap)
+    val = -(pop_variance + abs(graph_efficiency_gap)) #simple placeholder function
+    return val
 
 print(type(Dict_Trait.name))
 Dict_format = dict(
@@ -592,8 +606,25 @@ print(len(config1_test),
       len(config4_test))
 # G.add_nodes_from([(0,{})])
 # nx.set_node_attributes(G,Dict_format)
+print('Initial Config1 before iteration:')
+print(print_graph_result(*(calculate_graph_result(G,config1, print_district_by_district_result))))
 
+input = config1
+initial_score = compute_state_score(G,input)
+print('Initial Score: ', initial_score)
+result,score = anneal_step(G, config1, initial_score, 1000)
+print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
+print('Score Start: ', score)
 
+for x in range(1000):
+    result,score =  anneal_step(G,result, score,1000-x)
+    if(x %100 == 0):
+        print('Epoch: ', x)
+        print(result)
+        print(print_graph_result(*(calculate_graph_result(G, result, print_district_by_district_result))))
+
+print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
+print('Score Final:', score)
 '''
 n = 5
 part_num = 3
