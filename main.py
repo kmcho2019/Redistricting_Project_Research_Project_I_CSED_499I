@@ -114,12 +114,8 @@ def gen_init_part(G: nx.Graph(), n: int) -> list:
     partition_node_list = []
     adj_list = return_adj_list_of_graph(G)
     n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list)
-    print(n_cuts)
-    print(membership)
     nodes_part_0 = np.argwhere(np.array(membership) == 0).ravel()
-    print(nodes_part_0)
     for i in range(n):
-        print(i)
         node_temp_list = []
         node_temp_list = np.argwhere(np.array(membership) == i).ravel()  # taken from
         # \https://github.com/inducer/pymetis#readme
@@ -143,7 +139,6 @@ def random_switch(G: nx.Graph(), partition_node_list: list) -> (list, bool):
     random_boundary_edge_pair = boundary_edge_list[random_boundary_edge_pair_index]
     # find partner partition to switch to
     partner_partition_num = 0
-    print(random_boundary_edge_pair)
     for kth_partition in new_switched_partition_node_list:
         if random_boundary_edge_pair[1] in kth_partition:
             break
@@ -163,15 +158,6 @@ def random_switch(G: nx.Graph(), partition_node_list: list) -> (list, bool):
     part_1 = G.subgraph(new_switched_partition_node_list[partner_partition_num])
     fst_part_connect_state = nx.is_connected(part_0)
     snd_part_connect_state = nx.is_connected(part_1)
-    print(random_boundary_edge_pair[0])
-    print(random_boundary_edge_pair[1])
-    print(new_switched_partition_node_list[random_partition_num])
-    print(new_switched_partition_node_list[partner_partition_num])
-    print(part_0)
-    print(part_1)
-    print('part vs new')
-    print(partition_node_list)
-    print(new_switched_partition_node_list)
     if np.array_equal(np.array(new_switched_partition_node_list, dtype=object),
                       np.array(partition_node_list, dtype=object)):
         is_node_list_changed = False
@@ -179,14 +165,9 @@ def random_switch(G: nx.Graph(), partition_node_list: list) -> (list, bool):
         is_node_list_changed = True
     if (
             fst_part_connect_state and snd_part_connect_state and is_node_list_changed):  # is switch valid and actually happened
-        print(fst_part_connect_state)
-        print(snd_part_connect_state)
         is_switched = True
         return_list = new_switched_partition_node_list
     else:
-        print(fst_part_connect_state)
-        print(snd_part_connect_state)
-        print(is_node_list_changed)
         is_switched = False
         return_list = partition_node_list
     return return_list, is_switched
@@ -196,6 +177,7 @@ def random_switch(G: nx.Graph(), partition_node_list: list) -> (list, bool):
 # when valid
 # select another node randomly if eat turns out to be invalid(i.e. breaks connection of partition)
 def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
+    print('\n\n')
     is_eat_true = False
     is_node_list_changed = False
     return_list = []
@@ -212,7 +194,6 @@ def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
         random_boundary_edge_pair = boundary_edge_list[random_boundary_edge_pair_index]
         # find partner partition to eat from
         partner_partition_num = 0
-        print(random_boundary_edge_pair)
         # find partner partition number
         for kth_partition in new_switched_partition_node_list:
             if random_boundary_edge_pair[1] in kth_partition:
@@ -233,12 +214,30 @@ def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
         else:
             pass
 
+    #check if total len number remains constant
+    random_part_original_len = len(new_switched_partition_node_list[random_partition_num])
+    partner_part_original_len = len(new_switched_partition_node_list[partner_partition_num])
     # For some reason new_switched_partition_node_list[random_partition_num] is treated as numpy narray
+    #print('Type;!')
+    #print(type(new_switched_partition_node_list[random_partition_num]))
     # Use numpy functions instead of list when operating on this.
-
-    # random_partition_num partition will eat the entirety of boudary edge pair nodes
+    print('Boundary Edge: ', random_boundary_edge_pair)
+    print('Original Random Partition: ', new_switched_partition_node_list[random_partition_num])
+    print('Original Partner Partition: ', new_switched_partition_node_list[partner_partition_num])
+    print('Partition Numbers (Random, Partner)', random_partition_num,partner_partition_num)
+    # random_partition_num partition will eat the entirety of boundary edge pair nodes
     # index_loc_0 = np.where(new_switched_partition_node_list[random_partition_num] == random_boundary_edge_pair[0])
     index_loc_1 = np.where(new_switched_partition_node_list[partner_partition_num] == random_boundary_edge_pair[1])
+    print(index_loc_1)
+    index_loc_1 = 0
+    for ele in new_switched_partition_node_list[partner_partition_num]:
+        if ele == random_boundary_edge_pair[1]:
+            break
+        else:
+            index_loc_1 = index_loc_1 + 1
+    print(index_loc_1)
+    print('Index Number of Edge Node in Partner Partition: ', index_loc_1)
+    #print(len(index_loc_1))
     # delete from partner partition (random_boundary_edge_pair[1])
     new_switched_partition_node_list[partner_partition_num] = np.delete(
         new_switched_partition_node_list[partner_partition_num], index_loc_1)
@@ -246,38 +245,42 @@ def eat_random_node(G: nx.Graph(), partition_node_list: list) -> (list, bool):
     new_switched_partition_node_list[random_partition_num] = np.append(
         new_switched_partition_node_list[random_partition_num], random_boundary_edge_pair[1])
     # new_switched_partition_node_list[random_partition_num][index_loc_0], new_switched_partition_node_list[partner_partition_num][index_loc_1] = new_switched_partition_node_list[partner_partition_num][index_loc_1], new_switched_partition_node_list[random_partition_num][index_loc_0]
-
-    # Check if the new partitions are valided(they should be connected)
+    print('New Random Partition: ', new_switched_partition_node_list[random_partition_num])
+    print('New Partner Partition: ', new_switched_partition_node_list[partner_partition_num])
+    # Check if the new partitions are valid(they should be connected)
     part_0 = G.subgraph(new_switched_partition_node_list[random_partition_num])
     part_1 = G.subgraph(new_switched_partition_node_list[partner_partition_num])
     fst_part_connect_state = nx.is_connected(part_0)
     snd_part_connect_state = nx.is_connected(part_1)
-    print(random_boundary_edge_pair[0])
-    print(random_boundary_edge_pair[1])
-    print(new_switched_partition_node_list[random_partition_num])
-    print(new_switched_partition_node_list[partner_partition_num])
-    print(part_0)
-    print(part_1)
-    print('part vs new')
-    print(partition_node_list)
-    print(new_switched_partition_node_list)
+    # Is length maintained?
+    new_random_part_len = len(new_switched_partition_node_list[random_partition_num])
+    new_partner_part_len = len(new_switched_partition_node_list[partner_partition_num])
+    print('Original Random Part Length: ', random_part_original_len)
+    print('Original Partner Part Length: ', partner_part_original_len)
+    print('New Random Part Length: ', new_random_part_len)
+    print('New Partner Part Length: ', new_partner_part_len)
+    if(new_random_part_len + new_partner_part_len == random_part_original_len + partner_part_original_len):
+        is_len_valid = True
+    else:
+        is_len_valid = False
+    new_switched_partition_node_list[random_partition_num].sort()
+    new_switched_partition_node_list[partner_partition_num].sort()
     if np.array_equal(np.array(new_switched_partition_node_list, dtype=object),
                       np.array(partition_node_list, dtype=object)):
         is_node_list_changed = False
     else:
         is_node_list_changed = True
-    if (
-            fst_part_connect_state and snd_part_connect_state and is_node_list_changed):  # is switch valid and actually happened
-        print(fst_part_connect_state)
-        print(snd_part_connect_state)
+    if (fst_part_connect_state and snd_part_connect_state and is_node_list_changed and is_len_valid):  # is eating valid and actually happened
         is_eat_true = True
         return_list = new_switched_partition_node_list
     else:
-        print(fst_part_connect_state)
-        print(snd_part_connect_state)
-        print(is_node_list_changed)
         is_eat_true = False
         return_list = partition_node_list
+    if(is_eat_true):
+        print('Eat Valid')
+    else:
+        print('Eat Invalid')
+        print('1st Connect, 2nd Connect, List Change, Length Validity:', fst_part_connect_state, snd_part_connect_state, is_node_list_changed, is_len_valid)
     return return_list, is_eat_true
 
 
@@ -515,7 +518,6 @@ def compute_state_score(G: nx.Graph(), state_part_list: list) -> float:
     val = -(pop_variance + abs(graph_efficiency_gap)) #simple placeholder function
     return val
 
-print(type(Dict_Trait.name))
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
 Dict_example = dict(
@@ -543,17 +545,10 @@ for i in range(G.number_of_nodes()):
         value_list.append(dict_element_2)
 
 node_dict = {key_list[i]: value_list[i] for i in range(len(key_list))}
-print(node_dict)
-print((node_dict[0]))
-print((node_dict[1]))
-print((node_dict[2]))
-print((node_dict[3]))
-print((node_dict[4]))
 nx.set_node_attributes(G, node_dict)
 
 # layout = nx.planar_layout(G)
 color_map = get_color_map_from_dict(node_dict)
-print(color_map)
 nx.draw(G, with_labels=True, node_color=color_map)
 plt.show()
 print_district_result(*(calculate_part_result(G, [0, 1, 2, 3, 4])))
@@ -616,99 +611,48 @@ result,score = anneal_step(G, config1, initial_score, 1000)
 print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
 print('Score Start: ', score)
 
+result, bool_val = eat_random_node(G,config1)
+flip_num = 0
+for x in range(10):
+    result, bool_val = eat_random_node(G,result)
+    if(bool_val):
+        flip_num = flip_num + 1
+    if (x %1000 == 0):
+        print(len(result[0]) + len(result[1]) + len(result[2]) + len(result[3]) + len(result[4]))
+
+print_node_list(result)
+print(len(result[0])+len(result[1])+len(result[2])+len(result[3])+len(result[4]))
+new_result = []
+for l in result:
+    new_result.extend(l)
+new_result.sort()
+print(new_result)
+print('Eat Operation Num: ',flip_num)
+
+
+
+print('Initial Config1 before iteration:')
+print(print_graph_result(*(calculate_graph_result(G,config1, print_district_by_district_result))))
+
+input = config1
+initial_score = compute_state_score(G,input)
+print('Initial Score: ', initial_score)
+result,score = anneal_step(G, config1, initial_score, 1000)
+print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
+print('Score Start: ', score)
+
+'''
 for x in range(1000):
     result,score =  anneal_step(G,result, score,1000-x)
     if(x %100 == 0):
         print('Epoch: ', x)
         print(result)
         print(print_graph_result(*(calculate_graph_result(G, result, print_district_by_district_result))))
+        l = list(set().union(result[0], result[1], result[2], result[3], result[4]))
+        print(l, len(l))
 
+l = list(set().union(result[0],result[1],result[2],result[3],result[4]))
+print(l, len(l))
 print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
 print('Score Final:', score)
-'''
-n = 5
-part_num = 3
-#G = nxn_square_graph_gen(n)
-G = nx.complete_graph(20)
-H = nxn_square_graph_gen(n)
-partition_node_list = gen_init_part(G, part_num)
-print("Original Partition")
-print_node_list(partition_node_list)
-new_list,state = eat_random_node(G, partition_node_list)
-print("New Partition")
-print_node_list(new_list)
-
-print("Square Graph")
-partition_node_list = gen_init_part(H, part_num)
-print("Original Partition")
-print_node_list(partition_node_list)
-new_list,state = eat_random_node(H, partition_node_list)
-print("New Partition")
-print_node_list(new_list)
-print(state)
-
-'''
-
-'''
-new_list,state = random_switch(G, partition_node_list)
-new_list,state = random_switch(G, new_list)
-new_list,state = random_switch(G, new_list)
-new_list,state = random_switch(G, new_list)
-print_node_list(partition_node_list)
-print_node_list(new_list)
-
-fig = nx.draw(G,with_labels=True)
-
-sub_graph_0 = G.subgraph(partition_node_list[0])
-sub_graph_1 = G.subgraph(partition_node_list[1])
-sub_graph_2 = G.subgraph(partition_node_list[2])
-nx.draw(sub_graph_0, with_labels=True)
-nx.draw(sub_graph_1, with_labels=True)
-nx.draw(sub_graph_2, with_labels=True)
-
-sub_graph_0_ = G.subgraph(new_list[0])
-sub_graph_1_ = G.subgraph(new_list[1])
-sub_graph_2_ = G.subgraph(new_list[2])
-
-nx.draw(sub_graph_0_, with_labels=True)
-nx.draw(sub_graph_1_, with_labels=True)
-nx.draw(sub_graph_2_, with_labels=True)
-
-
-plt.show()
-'''
-
-# print(state)
-
-
-'''
-H = nxn_square_graph_gen(5)
-
-
-adj_list = nx.generate_adjlist(H)
-
-t = adj_list_to_metislist(adj_list)
-
-
-n_cuts, membership = pymetis.part_graph(2, adjacency=t)
-nodes_part_0 = np.argwhere(np.array(membership) == 0).ravel() # [3, 5, 6]
-nodes_part_1 = np.argwhere(np.array(membership) == 1).ravel() # [0, 1, 2, 4]
-
-nodes_part_0 = np.argwhere(np.array(membership) == 0).ravel() # [3, 5, 6]
-nodes_part_1 = np.argwhere(np.array(membership) == 1).ravel() # [0, 1, 2, 4]
-H_0 = H.subgraph(nodes_part_0)
-
-nx.draw(H_0,with_labels=True)
-
-plt.show()
-H_0_boundary = nx.edge_boundary(H,nodes_part_0)
-print(nx_gen_object_to_list(H_0_boundary))
-
-H_1 = H.subgraph(nodes_part_1)
-nx.draw(H_1, with_labels=True)
-plt.show()
-H_1_boundary = nx.edge_boundary(H,nodes_part_1)
-print(nx_gen_object_to_list(H_1_boundary))
-
-# nx.read_shp('emd.shp')
 '''
