@@ -728,3 +728,176 @@ l = graph_simulated_annealing(G,init_part)
 print(print_graph_result(*(calculate_graph_result(G,l, print_district_by_district_result))))
 print_node_list(l)
 print_node_list(init_part)
+
+
+#Sejong Demo:
+#described in sejong.adjlist
+#Consists of 22 nodes and 2 districts
+temp_G = nx.Graph()
+adj_list_path = 'sejong.adjlist'
+temp_G = nx.read_adjlist(adj_list_path)
+temp_adj_list = nx_gen_object_to_list(nx.generate_adjlist(temp_G))
+print(temp_adj_list)
+print(temp_adj_list[0].split(' '))
+Sejong_G_edge_list = []
+for x in range(len(temp_adj_list)):
+    #print(type(line))
+    list_ = temp_adj_list[x].split(' ')
+    list_ = [int(i) for i in list_]
+    ele_list = []
+    for y in range(1,len(list_)):
+        ele_list.append((list_[0], list_[y]))
+    Sejong_G_edge_list.extend(ele_list)
+
+    #list_ = [int(i) for i in line.split(' ')]
+    #list_.pop(0)
+    #temp_adj_list.append(list_)
+#print(temp_adj_list)
+print(Sejong_G_edge_list)
+Sejong_G = nx.Graph()
+Sejong_G.add_edges_from(Sejong_G_edge_list)
+print(Sejong_G.number_of_nodes())
+
+
+
+sejong_3611055000 =dict({Dict_Trait.name: '고운동', Dict_Trait.id: 3611055000, Dict_Trait.pop: 34104, Dict_Trait.total_votes: 15230, Dict_Trait.party_1: 8489, Dict_Trait.party_2: 6058, Dict_Trait.party_3: 452, Dict_Trait.color: 'white'})
+sejong_3611034000 =dict({Dict_Trait.name: '금남면', Dict_Trait.id: 3611034000, Dict_Trait.pop: 8917, Dict_Trait.total_votes: 5422, Dict_Trait.party_1: 2131, Dict_Trait.party_2: 3050, Dict_Trait.party_3: 127, Dict_Trait.color: 'white'})
+sejong_3611058000 =dict({Dict_Trait.name: '다정동', Dict_Trait.id: 3611058000, Dict_Trait.pop: 28226, Dict_Trait.total_votes: 14980, Dict_Trait.party_1: 8046, Dict_Trait.party_2: 6199, Dict_Trait.party_3: 503, Dict_Trait.color: 'white'})
+sejong_3611057000 =dict({Dict_Trait.name: '대평동', Dict_Trait.id: 3611057000, Dict_Trait.pop: 11316, Dict_Trait.total_votes: 6768, Dict_Trait.party_1: 3497, Dict_Trait.party_2: 2972, Dict_Trait.party_3: 206, Dict_Trait.color: 'white'})
+sejong_3611052000 =dict({Dict_Trait.name: '도담동', Dict_Trait.id: 3611052000, Dict_Trait.pop: 33520, Dict_Trait.total_votes: 16618, Dict_Trait.party_1: 8589, Dict_Trait.party_2: 7238, Dict_Trait.party_3: 535, Dict_Trait.color: 'white'})
+sejong_3611055600 =dict({Dict_Trait.name: '반곡동', Dict_Trait.id: 3611055600, Dict_Trait.pop: 22210, Dict_Trait.total_votes: 10594, Dict_Trait.party_1: 5631, Dict_Trait.party_2: 4415, Dict_Trait.party_3: 363, Dict_Trait.color: 'white'})
+sejong_3611056000 =dict({Dict_Trait.name: '보람동', Dict_Trait.id: 3611056000, Dict_Trait.pop: 18852, Dict_Trait.total_votes: 10415, Dict_Trait.party_1: 5632, Dict_Trait.party_2: 4295, Dict_Trait.party_3: 330, Dict_Trait.color: 'white'})
+sejong_3611033000 =dict({Dict_Trait.name: '부강면', Dict_Trait.id: 3611033000, Dict_Trait.pop: 6090, Dict_Trait.total_votes: 3881, Dict_Trait.party_1: 1719, Dict_Trait.party_2: 1968, Dict_Trait.party_3: 92, Dict_Trait.color: 'white'})
+sejong_3611051500 =dict({Dict_Trait.name: '새롬동', Dict_Trait.id: 3611051500, Dict_Trait.pop: 39069, Dict_Trait.total_votes: 18210, Dict_Trait.party_1: 9557, Dict_Trait.party_2: 7854, Dict_Trait.party_3: 545, Dict_Trait.color: 'white'})
+sejong_3611055500 =dict({Dict_Trait.name: '소담동', Dict_Trait.id: 3611055500, Dict_Trait.pop: 21004, Dict_Trait.total_votes: 10787, Dict_Trait.party_1: 5926, Dict_Trait.party_2: 4392, Dict_Trait.party_3: 320, Dict_Trait.color: 'white'})
+sejong_3611039000 =dict({Dict_Trait.name: '소정면', Dict_Trait.id: 3611039000, Dict_Trait.pop: 2229, Dict_Trait.total_votes: 1374, Dict_Trait.party_1: 496, Dict_Trait.party_2: 810, Dict_Trait.party_3: 37, Dict_Trait.color: 'white'})
+sejong_3611053000 =dict({Dict_Trait.name: '아름동', Dict_Trait.id: 3611053000, Dict_Trait.pop: 23291, Dict_Trait.total_votes: 12542, Dict_Trait.party_1: 7361, Dict_Trait.party_2: 4594, Dict_Trait.party_3: 433, Dict_Trait.color: 'white'})
+sejong_3611031000 =dict({Dict_Trait.name: '연기면', Dict_Trait.id: 3611031000, Dict_Trait.pop: 2780, Dict_Trait.total_votes: 2819, Dict_Trait.party_1: 1349, Dict_Trait.party_2: 1346, Dict_Trait.party_3: 63, Dict_Trait.color: 'white'})
+sejong_3611032000 =dict({Dict_Trait.name: '연동면', Dict_Trait.id: 3611032000, Dict_Trait.pop: 3086, Dict_Trait.total_votes: 1993, Dict_Trait.party_1: 728, Dict_Trait.party_2: 1181, Dict_Trait.party_3: 34, Dict_Trait.color: 'white'})
+sejong_3611036000 =dict({Dict_Trait.name: '연서면', Dict_Trait.id: 3611036000, Dict_Trait.pop: 7336, Dict_Trait.total_votes: 5581, Dict_Trait.party_1: 2620, Dict_Trait.party_2: 2737, Dict_Trait.party_3: 101, Dict_Trait.color: 'white'})
+sejong_3611035000 =dict({Dict_Trait.name: '장군면', Dict_Trait.id: 3611035000, Dict_Trait.pop: 7057, Dict_Trait.total_votes: 3931, Dict_Trait.party_1: 1796, Dict_Trait.party_2: 1974, Dict_Trait.party_3: 73, Dict_Trait.color: 'white'})
+sejong_3611038000 =dict({Dict_Trait.name: '전동면', Dict_Trait.id: 3611038000, Dict_Trait.pop: 3359, Dict_Trait.total_votes: 1981, Dict_Trait.party_1: 731, Dict_Trait.party_2: 1161, Dict_Trait.party_3: 46, Dict_Trait.color: 'white'})
+sejong_3611037000 =dict({Dict_Trait.name: '전의면', Dict_Trait.id: 3611037000, Dict_Trait.pop: 5524, Dict_Trait.total_votes: 3452, Dict_Trait.party_1: 1368, Dict_Trait.party_2: 1909, Dict_Trait.party_3: 87, Dict_Trait.color: 'white'})
+sejong_3611025000 =dict({Dict_Trait.name: '조치원읍', Dict_Trait.id: 3611025000, Dict_Trait.pop: 43191, Dict_Trait.total_votes: 20910, Dict_Trait.party_1: 9666, Dict_Trait.party_2: 10152, Dict_Trait.party_3: 576, Dict_Trait.color: 'white'})
+sejong_3611054000 =dict({Dict_Trait.name: '종촌동', Dict_Trait.id: 3611054000, Dict_Trait.pop: 28948, Dict_Trait.total_votes: 15674, Dict_Trait.party_1: 8662, Dict_Trait.party_2: 6362, Dict_Trait.party_3: 445, Dict_Trait.color: 'white'})
+sejong_3611051000 =dict({Dict_Trait.name: '한솔동', Dict_Trait.id: 3611051000, Dict_Trait.pop: 18546, Dict_Trait.total_votes: 10184, Dict_Trait.party_1: 5599, Dict_Trait.party_2: 4140, Dict_Trait.party_3: 311, Dict_Trait.color: 'white'})
+sejong_3611052500 =dict({Dict_Trait.name: '해밀동', Dict_Trait.id: 3611052500, Dict_Trait.pop: 8641, Dict_Trait.total_votes: 4589, Dict_Trait.party_1: 2670, Dict_Trait.party_2: 1726, Dict_Trait.party_3: 140, Dict_Trait.color: 'white'})
+
+
+
+'''
+3611010100	3611031000 3611034000 3611010200 3611032000
+3611010200	3611031000 3611010100 3611034000 3611010300
+3611010300	3611031000 3611010200 3611034000 3611010400
+3611010400	3611031000 3611010300 3611034000
+3611010600	3611010800 3611031000 3611035000 3611010800
+3611010800	3611035000 3611010900 3611010600 3611010600 3611011400 3611031000
+3611010900	3611011200 3611011100 3611011400 3611010800 3611010800 3611035000
+3611011100	3611011200 3611011300 3611011400 3611011400 3611010900
+3611011200	3611031000 3611011600 3611011300 3611011100 3611010900 3611035000
+3611011300	3611011200 3611011600 3611011400 3611011100
+3611011400	3611011600 3611011600 3611031000 3611011100 3611011300 3611010800 3611010900
+3611011600	3611031000 3611011400 3611011300 3611011200
+3611025000	3611038000 3611036000 3611032000
+3611031000	3611036000 3611032000 3611010100 3611010100 3611010100
+3611032000	3611025000 3611036000 3611031000 3611010100 3611034000 3611033000
+3611033000	3611032000 3611034000
+3611034000	3611035000 3611031000 3611010400 3611010300 3611010200 3611010100 3611010100 3611032000 3611033000
+3611035000	3611036000 3611031000 3611011200 3611010900 3611010800 3611010600 3611034000
+3611036000	3611037000 3611038000 3611025000 3611032000 3611031000 3611035000
+3611037000	3611038000 3611036000
+3611038000	3611037000 3611036000 3611025000
+3611039000	3611037000
+'''
+
+
+
+sejong_key_list = [3611055000,
+3611034000,
+3611058000,
+3611057000,
+3611052000,
+3611055600,
+3611056000,
+3611033000,
+3611051500,
+3611055500,
+3611039000,
+3611053000,
+3611031000,
+3611032000,
+3611036000,
+3611035000,
+3611038000,
+3611037000,
+3611025000,
+3611054000,
+3611051000,
+3611052500,
+]
+sejong_value_list = [sejong_3611055000,
+sejong_3611034000,
+sejong_3611058000,
+sejong_3611057000,
+sejong_3611052000,
+sejong_3611055600,
+sejong_3611056000,
+sejong_3611033000,
+sejong_3611051500,
+sejong_3611055500,
+sejong_3611039000,
+sejong_3611053000,
+sejong_3611031000,
+sejong_3611032000,
+sejong_3611036000,
+sejong_3611035000,
+sejong_3611038000,
+sejong_3611037000,
+sejong_3611025000,
+sejong_3611054000,
+sejong_3611051000,
+sejong_3611052500
+]
+
+sejong_dict = {sejong_key_list[i]: sejong_value_list[i] for i in range(len(sejong_key_list))}
+print(len(sejong_dict))
+print((sejong_dict))
+print(Sejong_G.nodes())
+print('dict')
+for item in sejong_dict:
+    print(sejong_dict[item])
+
+#node_dict = {key_list[i]: value_list[i] for i in range(len(key_list))}
+nx.set_node_attributes(Sejong_G, sejong_dict)
+#pos_Sejong_G = nx.spring_layout(Sejong_G)
+nx.draw(Sejong_G, with_labels=True)
+plt.show()
+print('\n')
+print(list(Sejong_G.nodes(data=Dict_Trait.name)))
+
+
+
+'''
+3611055000	고운동	34,104	15,230	8,489	6,058	452
+3611034000	금남면	8,917	5,422	2,131	3,050	127
+3611058000	다정동	28,226	14,980	8,046	6,199	503
+3611057000	대평동	11,316	6,768	3,497	2,972	206
+3611052000	도담동	33,520	16,618	8,589	7,238	535
+3611055600	반곡동	22,210	10,594	5,631	4,415	363
+3611056000	보람동	18,852	10,415	5,632	4,295	330
+3611033000	부강면	6,090	3,881	1,719	1,968	92
+3611051500	새롬동	39,069	18,210	9,557	7,854	545
+3611055500	소담동	21,004	10,787	5,926	4,392	320
+3611039000	소정면	2,229	1,374	496	810	37
+3611053000	아름동	23,291	12,542	7,361	4,594	433
+3611031000	연기면	2,780	2,819	1,349	1,346	63
+3611032000	연동면	3,086	1,993	728	1,181	34
+3611036000	연서면	7,336	5,581	2,620	2,737	101
+3611035000	장군면	7,057	3,931	1,796	1,974	73
+3611038000	전동면	3,359	1,981	731	1,161	46
+3611037000	전의면	5,524	3,452	1,368	1,909	87
+3611025000	조치원읍	43,191	20,910	9,666	10,152	576
+3611054000	종촌동	28,948	15,674	8,662	6,362	445
+3611051000	한솔동	18,546	10,184	5,599	4,140	311
+3611052500	해밀동	8,641	4,589	2,670	1,726	140
+'''
