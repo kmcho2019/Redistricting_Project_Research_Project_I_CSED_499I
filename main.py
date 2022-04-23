@@ -956,8 +956,33 @@ plt.show()
 print('\n')
 print(list(Sejong_G.nodes(data=Dict_Trait.name)))
 
+print(Sejong_G.nodes())
+Sejong_G_node_list = [3611010100, 3611031000, 3611034000, 3611010200, 3611032000, 3611010300, 3611010400, 3611010600, 3611010800, 3611011200, 3611011400, 3611011600, 3611036000, 3611035000, 3611033000, 3611025000, 3611010900, 3611011100, 3611011300, 3611038000, 3611037000, 3611039000]
+Sejong_G_part1_list = [3611010100, 3611031000, 3611034000, 3611010200, 3611010300, 3611010400, 3611010600, 3611010800, 3611011200, 3611011400, 3611011600, 3611035000, 3611033000, 3611010900, 3611011100, 3611011300]
+Sejong_G_part2_list = [3611039000,3611037000,3611038000, 3611025000, 3611036000, 3611032000]
+print(type(Sejong_G))
+print('connected?')
+print(nx.is_connected(Sejong_G.subgraph(Sejong_G_part1_list)))
+print(nx.is_connected(Sejong_G.subgraph(Sejong_G_part1_list)))
+#print(return_adj_list_of_graph(Sejong_G))
+#print(nx.number_of_edges(Sejong_G))
+#Sejong_init_part = gen_init_part(Sejong_G,2)
+#print_node_list(Sejong_init_part)
+#Use manual init_part because gen_init_part for Sejong_G causes the function to crash (could be problem with graph itself))
+init_part = [Sejong_G_part1_list,Sejong_G_part2_list]
 
-
+l = graph_simulated_annealing(Sejong_G, init_part,1)
+print('Initial:')
+print(print_graph_result(*(calculate_graph_result(Sejong_G,init_part, True))))
+print('Final')
+print(print_graph_result(*(calculate_graph_result(Sejong_G,l, True))))
+print_node_list(l)
+print_node_list(init_part)
+current_boundary_Sejong_A = [3611010600,3611011400, 3611033000, 3611034000,3611035000]
+current_boundary_Sejong_B = [3611010100, 3611031000, 3611010200, 3611032000, 3611010300, 3611010400, 3611010800, 3611011200, 3611011600, 3611036000, 3611025000, 3611010900, 3611011100, 3611011300, 3611038000, 3611037000, 3611039000]
+current_boundary = [current_boundary_Sejong_A,current_boundary_Sejong_B]
+print('Current Configuration')
+print(print_graph_result(*(calculate_graph_result(Sejong_G,current_boundary, True))))
 '''
 3611055000	고운동	34,104	15,230	8,489	6,058	452
 3611034000	금남면	8,917	5,422	2,131	3,050	127
