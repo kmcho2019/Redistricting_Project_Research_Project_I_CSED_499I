@@ -733,6 +733,42 @@ print_node_list(init_part)
 #Sejong Demo:
 #described in sejong.adjlist
 #Consists of 22 nodes and 2 districts
+
+new_temp_G = nx.Graph()
+new_adj_list_path = 'sejong_auto.adjlist'
+new_temp_G = nx.read_adjlist(new_adj_list_path)
+new_temp_adj_list = nx_gen_object_to_list(nx.generate_adjlist(new_temp_G))
+new_Sejong_G_edge_list = []
+for x in range(len(new_temp_adj_list)):
+    #print(type(line))
+    list_ = new_temp_adj_list[x].split(' ')
+    list_ = [int(i) for i in list_]
+    ele_list = []
+    for y in range(1,len(list_)):
+        ele_list.append((list_[0], list_[y]))
+    new_Sejong_G_edge_list.extend(ele_list)
+new_Sejong_G = nx.Graph()
+new_Sejong_G.add_edges_from(new_Sejong_G_edge_list)
+#merge
+new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611011400,3611011000) #도담동, 어진동
+new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611010100, 3611011800) #반곡동, 집현동
+new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611010100, 3611011700) #반곡동, 합강동
+new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611010800, 3611010700) #새롬동, 나성동
+new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611010600, 3611010500) #한솔동, 가람동
+new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611011600, 3611011500) #해밀동, 산울동
+#remove self edges formed by merging
+new_Sejong_G.remove_edge(3611011400,3611011400) #도담동
+new_Sejong_G.remove_edge(3611010100,3611010100) #반곡동
+new_Sejong_G.remove_edge(3611010800,3611010800) #새롬동
+new_Sejong_G.remove_edge(3611010600,3611010600) #한솔동
+new_Sejong_G.remove_edge(3611011600,3611011600) #해밀동
+nx.write_adjlist(new_Sejong_G, "merged_sejong_auto.adjlist")
+
+
+
+
+
+
 temp_G = nx.Graph()
 adj_list_path = 'sejong.adjlist'
 temp_G = nx.read_adjlist(adj_list_path)
@@ -978,32 +1014,8 @@ print('Final')
 print(print_graph_result(*(calculate_graph_result(Sejong_G,l, True))))
 print_node_list(l)
 print_node_list(init_part)
-current_boundary_Sejong_A = [3611010600,3611011400, 3611033000, 3611034000,3611035000]
-current_boundary_Sejong_B = [3611010100, 3611031000, 3611010200, 3611032000, 3611010300, 3611010400, 3611010800, 3611011200, 3611011600, 3611036000, 3611025000, 3611010900, 3611011100, 3611011300, 3611038000, 3611037000, 3611039000]
+current_boundary_Sejong_A = [3611010600,3611011400, 3611010800,3611010400,3611010200,3611033000, 3611034000,3611035000]
+current_boundary_Sejong_B = [3611010100, 3611031000, 3611032000, 3611010300, 3611011200, 3611011600, 3611036000, 3611025000, 3611010900, 3611011100, 3611011300, 3611038000, 3611037000, 3611039000]
 current_boundary = [current_boundary_Sejong_A,current_boundary_Sejong_B]
 print('Current Configuration')
 print(print_graph_result(*(calculate_graph_result(Sejong_G,current_boundary, True))))
-'''
-3611055000	고운동	34,104	15,230	8,489	6,058	452
-3611034000	금남면	8,917	5,422	2,131	3,050	127
-3611058000	다정동	28,226	14,980	8,046	6,199	503
-3611057000	대평동	11,316	6,768	3,497	2,972	206
-3611052000	도담동	33,520	16,618	8,589	7,238	535
-3611055600	반곡동	22,210	10,594	5,631	4,415	363
-3611056000	보람동	18,852	10,415	5,632	4,295	330
-3611033000	부강면	6,090	3,881	1,719	1,968	92
-3611051500	새롬동	39,069	18,210	9,557	7,854	545
-3611055500	소담동	21,004	10,787	5,926	4,392	320
-3611039000	소정면	2,229	1,374	496	810	37
-3611053000	아름동	23,291	12,542	7,361	4,594	433
-3611031000	연기면	2,780	2,819	1,349	1,346	63
-3611032000	연동면	3,086	1,993	728	1,181	34
-3611036000	연서면	7,336	5,581	2,620	2,737	101
-3611035000	장군면	7,057	3,931	1,796	1,974	73
-3611038000	전동면	3,359	1,981	731	1,161	46
-3611037000	전의면	5,524	3,452	1,368	1,909	87
-3611025000	조치원읍	43,191	20,910	9,666	10,152	576
-3611054000	종촌동	28,948	15,674	8,662	6,362	445
-3611051000	한솔동	18,546	10,184	5,599	4,140	311
-3611052500	해밀동	8,641	4,589	2,670	1,726	140
-'''
