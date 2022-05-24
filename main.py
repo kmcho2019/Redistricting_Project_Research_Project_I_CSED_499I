@@ -510,7 +510,7 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
 # If computed score is better adopt next state if not only adopt with probability of exp(score_diff/Temp)
 # Output either input list(if no change) or changed list
 # Use for Monte CArlo Simulated Annealing Algorithm
-def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: float, current_temp: float) -> list:
+def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: float, current_temp: float):
     next_part_state,eat_validity = eat_random_node(G, current_part_state)
     next_state_score = compute_state_score(G, next_part_state)
     score_delta = next_state_score - current_state_score
@@ -518,7 +518,7 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
     if(score_delta > 0): #next state is improvement
         output_state = next_part_state
         output_score = next_state_score
-
+        probability = 1. # 1 as it always switches when there is an improvment
         print('\n')
         print('State Improved')
         print('Temperature: ', current_temp)
@@ -566,12 +566,15 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 10
     epoch_num = int(start_temp/step_size)
     # temp function Temp = 1000/(time^alpha + 1) (T:10000 ->0.01 as time goes on)
     alpha = 6/(math.log10(epoch_num))
+    score_history_list = []
     result_list,score = anneal_step(G,partition_node_list,initial_score,start_temp)
+    score_history_list.append(score)
     for time in range(epoch_num):
         current_temp = start_temp/((time**alpha) + 1)
         result_list, score = anneal_step(G, result_list, score, current_temp)
+        score_history_list.append(score)
         #result_list,score = anneal_step(G, result_list, score,start_temp-step_size*time)
-    return result_list
+    return result_list,score_history_list
 
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
@@ -579,155 +582,6 @@ Dict_example = dict(
     {Dict_Trait.name: 'default', Dict_Trait.id: 0, Dict_Trait.pop: 0, Dict_Trait.total_votes: 0, Dict_Trait.party_1: 0,
      Dict_Trait.party_2: 0, Dict_Trait.party_3: 0, Dict_Trait.color: 'white'})
 
-key_list = []
-n = 5
-m = 10
-G = nxm_rectangle_graph_gen(n, m)
-for x in range(G.number_of_nodes()):
-    key_list.append(x)
-
-value_list = []
-for i in range(G.number_of_nodes()):
-    dict_element_1 = {Dict_Trait.name: 'default', Dict_Trait.id: 0, Dict_Trait.pop: 10, Dict_Trait.total_votes: 10,
-                      Dict_Trait.party_1: 10, Dict_Trait.party_2: 0, Dict_Trait.party_3: 0, Dict_Trait.color: 'blue'}
-    dict_element_2 = {Dict_Trait.name: 'default', Dict_Trait.id: 0, Dict_Trait.pop: 10, Dict_Trait.total_votes: 10,
-                      Dict_Trait.party_1: 0, Dict_Trait.party_2: 10, Dict_Trait.party_3: 0, Dict_Trait.color: 'yellow'}
-    if i % n > 1:
-        dict_element_1[Dict_Trait.id] = i
-        value_list.append(dict_element_1)
-    else:
-        dict_element_2[Dict_Trait.id] = i
-        value_list.append(dict_element_2)
-
-node_dict = {key_list[i]: value_list[i] for i in range(len(key_list))}
-nx.set_node_attributes(G, node_dict)
-
-# layout = nx.planar_layout(G)
-color_map = get_color_map_from_dict(node_dict)
-nx.draw(G, with_labels=True, node_color=color_map)
-plt.show()
-print_district_result(*(calculate_part_result(G, [0, 1, 2, 3, 4])))
-partition_node_list = gen_init_part(G, 5)
-print_node_list(partition_node_list)
-print_graph_result(*(calculate_graph_result(G, partition_node_list, True)))
-
-# Test configuration taken from (https://en.wikipedia.org/wiki/Gerrymandering#/media/File:DifferingApportionment.svg)
-config1 = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-           [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-           [20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
-           [30, 31, 32, 33, 34, 35, 36, 37, 38, 39],
-           [40, 41, 42, 43, 44, 45, 46, 47, 48, 49]]
-config2 = [[0, 5, 6, 7, 8, 10, 11, 12, 13, 15],
-           [16, 17, 18, 20, 21, 25, 26, 31, 32, 33],
-           [30, 35, 36, 37, 38, 40, 41, 42, 43, 45],
-           [1, 2, 3, 4, 9, 14, 19, 24, 23, 22],
-           [27, 28, 29, 34, 39, 44, 46, 47, 48, 49]]
-config3 = [[0, 5, 10, 15, 20, 25, 30, 35, 40, 45],
-           [1, 6, 11, 16, 21, 26, 31, 36, 41, 46],
-           [2, 7, 12, 17, 22, 27, 32, 37, 42, 47],
-           [3, 8, 13, 18, 23, 28, 33, 38, 43, 48],
-           [4, 9, 14, 19, 24, 29, 34, 39, 44, 49]]
-config4 = [[0, 1, 2, 3, 4, 7, 8, 9, 13, 14],
-           [5, 6, 10, 11, 12, 15, 16, 17, 18, 19],
-           [20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
-           [30, 31, 32, 33, 34, 37, 38, 39, 43, 44],
-           [35, 36, 40, 41, 42, 45, 46, 47, 48, 49]]
-print_district_by_district_result = False
-print('\nConfig1\n')
-print_graph_result(*(calculate_graph_result(G, config1, print_district_by_district_result)))
-print('\nConfig2\n')
-print_graph_result(*(calculate_graph_result(G, config2, print_district_by_district_result)))
-print('\nConfig3\n')
-print_graph_result(*(calculate_graph_result(G, config3, print_district_by_district_result)))
-print('\nConfig4\n')
-print_graph_result(*(calculate_graph_result(G, config4, print_district_by_district_result)))
-
-config1_test = list(set().union(config1[0], config1[1], config1[2], config1[3], config1[4]))
-config2_test = list(set().union(config2[0], config2[1], config2[2], config2[3], config2[4]))
-config3_test = list(set().union(config3[0], config3[1], config3[2], config3[3], config3[4]))
-config4_test = list(set().union(config4[0], config4[1], config4[2], config4[3], config4[4]))
-print(config1_test)
-print(config2_test)
-print(config3_test)
-print(config4_test)
-print(len(config1_test),
-      len(config2_test),
-      len(config3_test),
-      len(config4_test))
-# G.add_nodes_from([(0,{})])
-# nx.set_node_attributes(G,Dict_format)
-print('Initial Config1 before iteration:')
-print(print_graph_result(*(calculate_graph_result(G,config1, print_district_by_district_result))))
-
-input = config1
-initial_score = compute_state_score(G,input)
-print('Initial Score: ', initial_score)
-result,score = anneal_step(G, config1, initial_score, 1000)
-print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
-print('Score Start: ', score)
-
-result, bool_val = eat_random_node(G,config1)
-flip_num = 0
-for x in range(10):
-    result, bool_val = eat_random_node(G,result)
-    if(bool_val):
-        flip_num = flip_num + 1
-    if (x %1000 == 0):
-        print(len(result[0]) + len(result[1]) + len(result[2]) + len(result[3]) + len(result[4]))
-
-print_node_list(result)
-print(len(result[0])+len(result[1])+len(result[2])+len(result[3])+len(result[4]))
-new_result = []
-for l in result:
-    new_result.extend(l)
-new_result.sort()
-print(new_result)
-print('Eat Operation Num: ',flip_num)
-
-
-
-print('Initial Config1 before iteration:')
-print(print_graph_result(*(calculate_graph_result(G,config1, print_district_by_district_result))))
-
-input = config1
-initial_score = compute_state_score(G,input)
-print('Initial Score: ', initial_score)
-result,score = anneal_step(G, config1, initial_score, 1000)
-print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
-print('Score Start: ', score)
-
-for x in range(1000):
-    result,score =  anneal_step(G,result, score,1000-x)
-    if(x %100 == 0):
-        print('Epoch: ', x)
-        print(result)
-        print(print_graph_result(*(calculate_graph_result(G, result, print_district_by_district_result))))
-        l = list(set().union(result[0], result[1], result[2], result[3], result[4]))
-        print(l, len(l))
-        print('Current Score: ',score)
-
-l = list(set().union(result[0],result[1],result[2],result[3],result[4]))
-print(l, len(l))
-print(print_graph_result(*(calculate_graph_result(G,result, print_district_by_district_result))))
-print('Score Final:', score)
-print_node_list(result)
-
-result_example = [[ 0,  1,  2,  3,  4,  5,  6,  8,  9, 10],
-            [ 7, 11, 12, 13, 14, 18, 19, 23, 24, 29],
-            [15, 16, 17, 20, 21, 22, 25, 26, 27, 32],
-            [30, 31, 35, 36, 40, 41, 42, 43, 45, 46],
-            [28, 33, 34, 37, 38, 39, 44, 47, 48, 49]
-            ]
-print(print_graph_result(*(calculate_graph_result(G,result_example, print_district_by_district_result))))
-for line in result_example:
-    print(nx.is_connected(G.subgraph(line)))
-
-init_part = gen_init_part(G,5)
-print_node_list(init_part)
-l = graph_simulated_annealing(G,init_part)
-print(print_graph_result(*(calculate_graph_result(G,l, print_district_by_district_result))))
-print_node_list(l)
-print_node_list(init_part)
 
 
 #Sejong Demo:
@@ -757,16 +611,20 @@ new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611010800, 3611010700) #새롬�
 new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611010600, 3611010500) #한솔동, 가람동
 new_Sejong_G = nx.contracted_nodes(new_Sejong_G,3611011600, 3611011500) #해밀동, 산울동
 #remove self edges formed by merging
+'''
 new_Sejong_G.remove_edge(3611011400,3611011400) #도담동
 new_Sejong_G.remove_edge(3611010100,3611010100) #반곡동
 new_Sejong_G.remove_edge(3611010800,3611010800) #새롬동
 new_Sejong_G.remove_edge(3611010600,3611010600) #한솔동
 new_Sejong_G.remove_edge(3611011600,3611011600) #해밀동
+'''
+new_Sejong_G.remove_edges_from(nx.selfloop_edges(new_Sejong_G))
 nx.write_adjlist(new_Sejong_G, "merged_sejong_auto.adjlist")
+nx.draw(new_Sejong_G)
+plt.show()
 
 
-
-
+#gen_init_part(new_Sejong_G,2) #also does not seem to work with gen_init_part
 
 
 temp_G = nx.Graph()
@@ -1007,7 +865,7 @@ print(nx.is_connected(Sejong_G.subgraph(Sejong_G_part1_list)))
 #Use manual init_part because gen_init_part for Sejong_G causes the function to crash (could be problem with graph itself))
 init_part = [Sejong_G_part1_list,Sejong_G_part2_list]
 
-l = graph_simulated_annealing(Sejong_G, init_part,1)
+l,foo = graph_simulated_annealing(Sejong_G, init_part,1)
 print('Initial:')
 print(print_graph_result(*(calculate_graph_result(Sejong_G,init_part, True))))
 print('Final')
@@ -1019,3 +877,13 @@ current_boundary_Sejong_B = [3611010100, 3611031000, 3611032000, 3611010300, 361
 current_boundary = [current_boundary_Sejong_A,current_boundary_Sejong_B]
 print('Current Configuration')
 print(print_graph_result(*(calculate_graph_result(Sejong_G,current_boundary, True))))
+print_node_list(current_boundary)
+plt.plot(foo)
+#plt.yscale('log')
+plt.xlabel('epoch')
+plt.ylabel('score')
+plt.show()
+p_layout = nx.planar_layout(Sejong_G)
+
+nx.draw(Sejong_G,p_layout)
+plt.show()
