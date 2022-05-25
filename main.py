@@ -22,6 +22,8 @@ import math
 '''
 
 
+
+
 class Precint:
     def __init__(self, name="default", id=0, pop=0, votes=0, party_1=0, party_2=0):
         self.name = name
@@ -122,6 +124,44 @@ def gen_init_part(G: nx.Graph(), n: int) -> list:
         # print(node_temp_list)
         partition_node_list.append(node_temp_list)
     return partition_node_list
+
+# Take graph (G) and split it into n partitions return list containing lists of partition nodes
+# Must be used when adj_list index does not match node number.
+# gen_init_part simply assumes that node number corresponds with adj_list.
+# pymetis.part_graph requires that adjacency[i] it is an iterable
+# of vertices adjacent to vertex i.
+# In cases where this cannot be guaranteed it must be converted first to 0,1, ...
+# Then be converted back to original format
+def alt_gen_init_part(G: nx.Graph(), n: int) -> list:
+    partition_node_list = []
+    replacement_dict = {}
+    input_node_list = list(G.nodes())
+    restore_node_num_dict = {idx: x for idx,x in enumerate(input_node_list)}
+    encode_node_num_dict = {x : idx for idx,x in enumerate(input_node_list)}
+    adj_list = return_adj_list_of_graph(G)
+    print(adj_list)
+    print(type(adj_list))
+    print(restore_node_num_dict)
+    print(encode_node_num_dict)
+    l = []
+    for x in adj_list:
+        l.append([encode_node_num_dict.get(n) for n in x])
+    adj_list = l
+    n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list) #need to fix as it results in non-contigous partitions
+    #n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list,options=pymetis.Options(contig=True)) #unusable due to old version of pymetis being installed
+    nodes_part_0 = np.argwhere(np.array(membership) == 0).ravel()
+    for i in range(n):
+        node_temp_list = []
+        node_temp_list = np.argwhere(np.array(membership) == i).ravel()  # taken from
+        # \https://github.com/inducer/pymetis#readme
+        # print(node_temp_list)
+        partition_node_list.append(node_temp_list)
+    temp = []
+    for x in partition_node_list:
+        temp.append([restore_node_num_dict.get(n) for n in x])
+    partition_node_list = temp
+    return partition_node_list
+
 
 
 # Take graph (G) and partion node list and return switch one node from one partition to neighboring partition when valid
