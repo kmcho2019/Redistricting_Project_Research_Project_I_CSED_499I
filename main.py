@@ -147,8 +147,8 @@ def alt_gen_init_part(G: nx.Graph(), n: int) -> list:
     for x in adj_list:
         l.append([encode_node_num_dict.get(n) for n in x])
     adj_list = l
-    n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list) #need to fix as it results in non-contigous partitions
-    #n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list,options=pymetis.Options(contig=True)) #unusable due to old version of pymetis being installed
+    #n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list) #need to fix as it results in non-contigous partitions
+    n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list,options=pymetis.Options(contig=True)) #unusable due to old version of pymetis being installed
     nodes_part_0 = np.argwhere(np.array(membership) == 0).ravel()
     for i in range(n):
         node_temp_list = []
