@@ -593,10 +593,18 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
     return output_state,output_score, probability
 
 def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_weight = 0.8) -> float:
-    (efficiency_gap ,pop_variance) = (0,0)
+    (graph_efficiency_gap ,pop_variance) = (0,0)
     (_, _, _, _, _, _, _, pop_avg, pop_variance, _, _, graph_efficiency_gap,_) = calculate_graph_result(G,state_part_list)
     pop_portion = 100*(1-math.exp(-(pop_variance/(9*pop_avg)))) * pop_distribute_weight
-    partisan_portion = efficiency_gap * (1-pop_distribute_weight)
+    partisan_portion = abs(graph_efficiency_gap) * (1-pop_distribute_weight)
+    if graph_efficiency_gap < 0:
+        print('IMPROPER BEHAVIOR!!!!!!!!!!!!!!!!\n')
+    else:
+        print('PROPER!\n')
+    if graph_efficiency_gap == 0:
+        print('efficency gap == 0!!')
+    print('pop portion: ', pop_portion)
+    print('partisan portion: ', partisan_portion)
     val = 5000*math.exp(-0.131*(pop_portion+partisan_portion))
     #val = max((pop_variance + abs(graph_efficiency_gap)),0.1) #simple placeholder function
     #val = 100/val
