@@ -569,7 +569,7 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
             print('Next Score: ', next_state_score)
             print('\n')
     else: #next state is not an improvement, moves up score slop which should be minimized
-        probability = math.exp(score_delta/current_temp)
+        probability = math.exp(-score_delta/current_temp)
         if(random.random() <probability): #move to next state even if it is worst under probability
             output_state = next_part_state
             output_score = next_state_score
