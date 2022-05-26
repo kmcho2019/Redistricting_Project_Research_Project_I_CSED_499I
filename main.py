@@ -606,11 +606,11 @@ def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_wei
     #val = 100/val
     return val
 
-def graph_simulated_annealing(G: nx.Graph(), partition_node_list, iter_per_epoch = 100, verbose = False):
+def graph_simulated_annealing(G: nx.Graph(), partition_node_list, iter_per_epoch = 20, verbose = False):
     result_list = []
     initial_score = compute_state_score(G,partition_node_list)
     start_temp = 0.4 #10000 # Temperature always starts at 10000
-    epoch_num = 40 #int(start_temp/step_size)
+    epoch_num = 80 #int(start_temp/step_size)
     # temp function Temp = 1000/(time^alpha + 1) (T:10000 ->0.01 as time goes on)
     alpha = 0.95 #6/(math.log10(epoch_num))
     score_history_list = []
@@ -621,9 +621,10 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, iter_per_epoch
     current_temp = start_temp
     for time in range(epoch_num):
         current_temp = current_temp * alpha #start_temp/((time**alpha) + 1)
-        result_list, score, probability = anneal_step(G, result_list, score, current_temp, verbose)
-        score_history_list.append(score)
-        probability_history_list.append(probability)
+        for epoch_iter in range(iter_per_epoch):
+            result_list, score, probability = anneal_step(G, result_list, score, current_temp, verbose)
+            score_history_list.append(score)
+            probability_history_list.append(probability)
         #result_list,score, probability = anneal_step(G, result_list, score,start_temp-step_size*time, verbose)
     return result_list,score_history_list, probability_history_list
 
