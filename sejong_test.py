@@ -230,5 +230,15 @@ sejong_value_list = [sejong_3611011200,
 sejong_dict = {sejong_key_list[i]: sejong_value_list[i] for i in range(len(sejong_key_list))}
 nx.set_node_attributes(new_Sejong_G, sejong_dict)
 init_part = alt_gen_init_part(new_Sejong_G, 2)
-result_list, score_history_list, probability_history_list = graph_simulated_annealing(new_Sejong_G, init_part, 100, True)
+result_list, score_history_list, probability_history_list = graph_simulated_annealing(new_Sejong_G, init_part, 10, True)
 compare_before_after_graph_anneal(new_Sejong_G, init_part,result_list)
+
+score_fig = plt.figure(1)
+plt.plot(score_history_list)
+plt.savefig('score_history.png')
+prob_fig = plt.figure(2)
+plt.plot(probability_history_list)
+plt.savefig('prob_history.png')
+
+print(score_history_list)
+print(probability_history_list)

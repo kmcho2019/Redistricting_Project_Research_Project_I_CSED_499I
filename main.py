@@ -652,6 +652,8 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     print(f"{'Partitions' : <20}{'Init Part' : ^20}{'Anneal Part' : ^20}")
     for i in range(len(init_graph_list)):
         print(f"{element_list[i] : <20}{init_graph_list[i] : ^20}{anneal_graph_list[i] : ^20}")
+    print(init_graph_list)
+    print(anneal_graph_list)
     '''
     for t0, t1, t2 in zip(element_list, init_graph_list, anneal_graph_list):
         print('%-20s %s' % (t0, t1, t2))
