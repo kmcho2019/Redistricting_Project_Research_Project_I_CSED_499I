@@ -550,7 +550,7 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
 # If computed score is better adopt next state if not only adopt with probability of exp(score_diff/Temp)
 # Output either input list(if no change) or changed list
 # Use for Monte CArlo Simulated Annealing Algorithm
-def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: float, current_temp: float):
+def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: float, current_temp: float, verbose =False):
     next_part_state,eat_validity = eat_random_node(G, current_part_state)
     next_state_score = compute_state_score(G, next_part_state)
     score_delta = next_state_score - current_state_score
@@ -559,34 +559,37 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
         output_state = next_part_state
         output_score = next_state_score
         probability = 1. # 1 as it always switches when there is an improvment
-        print('\n')
-        print('State Improved')
-        print('Temperature: ', current_temp)
-        print('Current Score: ', current_state_score)
-        print('Next Score: ', next_state_score)
-        print('\n')
+        if verbose:
+            print('\n')
+            print('State Improved')
+            print('Temperature: ', current_temp)
+            print('Current Score: ', current_state_score)
+            print('Next Score: ', next_state_score)
+            print('\n')
     else: #next state is not an improvement
         probability = math.exp(score_delta/current_temp)
         if(random.random() <probability): #move to next state even if it is worst under probability
             output_state = next_part_state
             output_score = next_state_score
-            print('\n')
-            print('State Not Improved Move Anyway', probability)
-            print('Temperature: ', current_temp)
-            print('Current Score: ', current_state_score)
-            print('Next Score: ', next_state_score)
-            print('Probability: ', probability)
-            print('\n')
+            if verbose:
+                print('\n')
+                print('State Not Improved Move Anyway', probability)
+                print('Temperature: ', current_temp)
+                print('Current Score: ', current_state_score)
+                print('Next Score: ', next_state_score)
+                print('Probability: ', probability)
+                print('\n')
         else:
             output_state = current_part_state
             output_score = current_state_score
-            print('\n')
-            print('State Not Improved Do Not Move')
-            print('Temperature: ', current_temp)
-            print('Current Score: ', current_state_score)
-            print('Next Score: ', next_state_score)
-            print('Probability: ', probability)
-            print('\n')
+            if verbose:
+                print('\n')
+                print('State Not Improved Do Not Move')
+                print('Temperature: ', current_temp)
+                print('Current Score: ', current_state_score)
+                print('Next Score: ', next_state_score)
+                print('Probability: ', probability)
+                print('\n')
     return output_state,output_score
 
 def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_weight = 0.8) -> float:
@@ -599,7 +602,7 @@ def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_wei
     #val = 100/val
     return val
 
-def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 100):
+def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 100, verbose = False):
     result_list = []
     initial_score = compute_state_score(G,partition_node_list)
     start_temp = 10000 # Temperature always starts at 10000
@@ -607,13 +610,13 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 10
     # temp function Temp = 1000/(time^alpha + 1) (T:10000 ->0.01 as time goes on)
     alpha = 6/(math.log10(epoch_num))
     score_history_list = []
-    result_list,score = anneal_step(G,partition_node_list,initial_score,start_temp)
+    result_list,score = anneal_step(G,partition_node_list,initial_score,start_temp, verbose)
     score_history_list.append(score)
     for time in range(epoch_num):
         current_temp = start_temp/((time**alpha) + 1)
-        result_list, score = anneal_step(G, result_list, score, current_temp)
+        result_list, score = anneal_step(G, result_list, score, current_temp, verbose)
         score_history_list.append(score)
-        #result_list,score = anneal_step(G, result_list, score,start_temp-step_size*time)
+        #result_list,score = anneal_step(G, result_list, score,start_temp-step_size*time, verbose)
     return result_list,score_history_list
 
 Dict_format = dict(
