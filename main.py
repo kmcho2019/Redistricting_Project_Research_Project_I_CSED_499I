@@ -506,9 +506,10 @@ def calculate_graph_result(G: nx.Graph(), partition_node_list: list, print_distr
 
     pop_avg = statistics.mean(pop_list)
     pop_variance = statistics.variance(pop_list)
+    pop_stdev = statistics.stdev(pop_list)
     graph_efficiency_gap = ((party_1_wasted_vote - party_2_wasted_vote) / graph_vote) * 100  # percentage
     return (graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won, party_2_district_won,
-            party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap,tied_districts)
+            party_3_district_won, pop_avg, pop_variance,pop_stdev, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap,tied_districts)
 
 
 def print_district_result(part_pop, part_vote, part_party_1_vote, part_party_2_vote, district_winner, party_1_wasted_vote, party_2_wasted_vote):
@@ -525,7 +526,7 @@ def print_district_result(part_pop, part_vote, part_party_1_vote, part_party_2_v
 
 
 def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won,
-                       party_2_district_won, party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote,
+                       party_2_district_won, party_3_district_won, pop_avg, pop_variance,pop_stdev, party_1_wasted_vote,
                        party_2_wasted_vote, graph_efficiency_gap,tied_districts):
     percentage1 = (graph_party_1_vote / graph_vote) * 100
     percentage2 = (graph_party_2_vote / graph_vote) * 100
@@ -533,6 +534,7 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
     print('Total Graph(Province) Population: ', graph_pop)
     print('Average Graph(Province) Population: ', pop_avg)
     print('Variance of Graph(Province) Population: ', pop_variance)
+    print('Standard Deviation of Graph(Province) Population: ', pop_stdev)
     print('Total Vote: ', graph_vote)
     print('Total Party1 Vote: ', graph_party_1_vote, ' (', percentage1, '%)')
     print('Total Party2 Vote: ', graph_party_2_vote, ' (', percentage2, '%)')
@@ -592,9 +594,9 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
                 print('\n')
     return output_state,output_score, probability
 
-def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_weight = 0.8) -> float:
+def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_weight = 0.5) -> float:
     (graph_efficiency_gap ,pop_variance) = (0,0)
-    (_, _, _, _, _, _, _, pop_avg, pop_variance, _, _, graph_efficiency_gap,_) = calculate_graph_result(G,state_part_list)
+    (_, _, _, _, _, _, _, pop_avg, pop_variance,pop_stdev, _, _, graph_efficiency_gap,_) = calculate_graph_result(G,state_part_list)
     pop_portion = 100*(1-math.exp(-(pop_variance/(9*pop_avg)))) * pop_distribute_weight
     partisan_portion = abs(graph_efficiency_gap) * (1-pop_distribute_weight)
     if graph_efficiency_gap < 0:
@@ -644,7 +646,7 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     print(init_graph_list)
     print(anneal_graph_list)
     element_list = ['graph_pop', 'graph_vote', 'graph_party_1_vote', 'graph_party_2_vote', 'party_1_district_won', 'party_2_district_won',
-            'party_3_district_won', 'pop_avg', 'pop_variance', 'party_1_wasted_vote', 'party_2_wasted_vote', 'graph_efficiency_gap','tied_districts', 'score']
+            'party_3_district_won', 'pop_avg', 'pop_variance','pop_stdev', 'party_1_wasted_vote', 'party_2_wasted_vote', 'graph_efficiency_gap','tied_districts', 'score']
     print('-Initial partition score')
     print(print_graph_result(*(calculate_graph_result(G, init_part_list, True))))
     print('\n-Anneal partition score')
@@ -657,7 +659,7 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     init_graph_list.insert(0,header_list[1])
     anneal_graph_list.insert(0,header_list[2])
     #print('%-20s %s' % (header_list[0], header_list[1], header_list[2]))
-    print(f"{'Partitions' : <20}{'Init Part' : ^20}{'Anneal Part' : ^20}")
+    #print(f"{'Partitions' : <20}{'Init Part' : ^20}{'Anneal Part' : ^20}")
     for i in range(len(init_graph_list)):
         print(f"{element_list[i] : <20}{init_graph_list[i] : ^20}{anneal_graph_list[i] : ^20}")
     print(init_graph_list)
@@ -668,7 +670,7 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     '''
 
     #(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won, party_2_district_won,
-    # party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap,tied_districts)
+    # party_3_district_won, pop_avg, pop_variance, pop_stdev, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap,tied_districts)
 
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
