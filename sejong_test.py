@@ -242,3 +242,5 @@ plt.savefig('prob_history.png')
 
 print(score_history_list)
 print(probability_history_list)
+print('is planar?(new_Sejong_G): ',nx.is_planar(new_Sejong_G))
+print('is planar?(normalized_Sejong_G): ',nx.is_planar(normalized_Sejong_G))

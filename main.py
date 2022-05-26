@@ -557,7 +557,7 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
     next_state_score = compute_state_score(G, next_part_state)
     score_delta = next_state_score - current_state_score
 
-    if(score_delta > 0): #next state is improvement
+    if(score_delta < 0): #next state is improvement, moves down score slope, must minimize score
         output_state = next_part_state
         output_score = next_state_score
         probability = 1. # 1 as it always switches when there is an improvement
@@ -568,7 +568,7 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
             print('Current Score: ', current_state_score)
             print('Next Score: ', next_state_score)
             print('\n')
-    else: #next state is not an improvement
+    else: #next state is not an improvement, moves up score slop which should be minimized
         probability = math.exp(score_delta/current_temp)
         if(random.random() <probability): #move to next state even if it is worst under probability
             output_state = next_part_state
@@ -597,35 +597,30 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
 def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_weight = 0.5) -> float:
     (graph_efficiency_gap ,pop_variance) = (0,0)
     (_, _, _, _, _, _, _, pop_avg, pop_variance,pop_stdev, _, _, graph_efficiency_gap,_) = calculate_graph_result(G,state_part_list)
-    pop_portion = 100*(1-math.exp(-(pop_variance/(9*pop_avg)))) * pop_distribute_weight
-    partisan_portion = abs(graph_efficiency_gap) * (1-pop_distribute_weight)
-    if graph_efficiency_gap < 0:
-        print('IMPROPER BEHAVIOR!!!!!!!!!!!!!!!!\n')
-    else:
-        print('PROPER!\n')
-    if graph_efficiency_gap == 0:
-        print('efficency gap == 0!!')
-    print('pop portion: ', pop_portion)
-    print('partisan portion: ', partisan_portion)
-    val = 5000*math.exp(-0.131*(pop_portion+partisan_portion))
+    #pop_portion = 100*(1-math.exp(-(pop_variance/(9*pop_avg)))) * pop_distribute_weight
+    pop_portion = (pop_stdev/pop_avg)*pop_distribute_weight #simulation found that po_stdev/pop_avg 01~1.0 sometimes up to 1.5 for extreme cases centers around 0.25 for mild variation(x1~3), 0.55 for large variations(x10~20)
+    partisan_portion = (abs(graph_efficiency_gap)/100) * (1-pop_distribute_weight) #abs(graph_efficiency_gap) always 0~100
+    val = pop_portion + partisan_portion
+    #val = 5000*math.exp(-0.131*(pop_portion+partisan_portion))
     #val = max((pop_variance + abs(graph_efficiency_gap)),0.1) #simple placeholder function
     #val = 100/val
     return val
 
-def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 100, verbose = False):
+def graph_simulated_annealing(G: nx.Graph(), partition_node_list, iter_per_epoch = 100, verbose = False):
     result_list = []
     initial_score = compute_state_score(G,partition_node_list)
-    start_temp = 10000 # Temperature always starts at 10000
-    epoch_num = int(start_temp/step_size)
+    start_temp = 0.4 #10000 # Temperature always starts at 10000
+    epoch_num = 40 #int(start_temp/step_size)
     # temp function Temp = 1000/(time^alpha + 1) (T:10000 ->0.01 as time goes on)
-    alpha = 6/(math.log10(epoch_num))
+    alpha = 0.95 #6/(math.log10(epoch_num))
     score_history_list = []
     probability_history_list = []
     result_list,score, probability = anneal_step(G,partition_node_list,initial_score,start_temp, verbose)
     score_history_list.append(score)
     probability_history_list.append(probability)
+    current_temp = start_temp
     for time in range(epoch_num):
-        current_temp = start_temp/((time**alpha) + 1)
+        current_temp = current_temp * alpha #start_temp/((time**alpha) + 1)
         result_list, score, probability = anneal_step(G, result_list, score, current_temp, verbose)
         score_history_list.append(score)
         probability_history_list.append(probability)
