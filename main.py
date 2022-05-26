@@ -622,6 +622,44 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 10
         #result_list,score, probability = anneal_step(G, result_list, score,start_temp-step_size*time, verbose)
     return result_list,score_history_list, probability_history_list
 
+def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, anneal_part_list: list):
+    init_graph_list = [*(calculate_graph_result(G, init_part_list, True))]
+    anneal_graph_list = [*(calculate_graph_result(G, anneal_part_list, True))]
+    init_state_score = compute_state_score(G, init_part_list)
+    anneal_state_score = compute_state_score(G, anneal_part_list)
+    init_graph_list.append(init_state_score)
+    anneal_graph_list.append(anneal_state_score)
+    print(init_graph_list)
+    print(anneal_graph_list)
+    init_graph_list = [str(x) for x in init_graph_list]
+    anneal_graph_list = [str(x) for x in anneal_graph_list]
+    print(init_graph_list)
+    print(anneal_graph_list)
+    element_list = ['graph_pop', 'graph_vote', 'graph_party_1_vote', 'graph_party_2_vote', 'party_1_district_won', 'party_2_district_won',
+            'party_3_district_won', 'pop_avg', 'pop_variance', 'party_1_wasted_vote', 'party_2_wasted_vote', 'graph_efficiency_gap','tied_districts', 'score']
+    print('-Initial partition score')
+    print(print_graph_result(*(calculate_graph_result(G, init_part_list, True))))
+    print('\n-Anneal partition score')
+    print(print_graph_result(*(calculate_graph_result(G, anneal_part_list, True))))
+    header_list =['Partitions', 'Init Part', 'Anneal Part']
+    print('\n-Comparison:')
+    #for h0, h1, h2 in (header_list[0], header_list[1], header_list[2]):
+        #print('%-20s %s' % (h0, h1, h2))
+    element_list.insert(0,header_list[0])
+    init_graph_list.insert(0,header_list[1])
+    anneal_graph_list.insert(0,header_list[2])
+    #print('%-20s %s' % (header_list[0], header_list[1], header_list[2]))
+    print(f"{'Partitions' : <20}{'Init Part' : ^20}{'Anneal Part' : ^20}")
+    for i in range(len(init_graph_list)):
+        print(f"{element_list[i] : <20}{init_graph_list[i] : ^20}{anneal_graph_list[i] : ^20}")
+    '''
+    for t0, t1, t2 in zip(element_list, init_graph_list, anneal_graph_list):
+        print('%-20s %s' % (t0, t1, t2))
+    '''
+
+    #(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won, party_2_district_won,
+    # party_3_district_won, pop_avg, pop_variance, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap,tied_districts)
+
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
 Dict_example = dict(
