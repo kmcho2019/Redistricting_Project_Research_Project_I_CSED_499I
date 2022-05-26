@@ -558,7 +558,7 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
     if(score_delta > 0): #next state is improvement
         output_state = next_part_state
         output_score = next_state_score
-        probability = 1. # 1 as it always switches when there is an improvment
+        probability = 1. # 1 as it always switches when there is an improvement
         if verbose:
             print('\n')
             print('State Improved')
@@ -590,7 +590,7 @@ def anneal_step(G: nx.Graph(), current_part_state: list, current_state_score: fl
                 print('Next Score: ', next_state_score)
                 print('Probability: ', probability)
                 print('\n')
-    return output_state,output_score
+    return output_state,output_score, probability
 
 def compute_state_score(G: nx.Graph(), state_part_list: list, pop_distribute_weight = 0.8) -> float:
     (efficiency_gap ,pop_variance) = (0,0)
@@ -610,14 +610,17 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, step_size = 10
     # temp function Temp = 1000/(time^alpha + 1) (T:10000 ->0.01 as time goes on)
     alpha = 6/(math.log10(epoch_num))
     score_history_list = []
-    result_list,score = anneal_step(G,partition_node_list,initial_score,start_temp, verbose)
+    probability_history_list = []
+    result_list,score, probability = anneal_step(G,partition_node_list,initial_score,start_temp, verbose)
     score_history_list.append(score)
+    probability_history_list.append(probability)
     for time in range(epoch_num):
         current_temp = start_temp/((time**alpha) + 1)
-        result_list, score = anneal_step(G, result_list, score, current_temp, verbose)
+        result_list, score, probability = anneal_step(G, result_list, score, current_temp, verbose)
         score_history_list.append(score)
-        #result_list,score = anneal_step(G, result_list, score,start_temp-step_size*time, verbose)
-    return result_list,score_history_list
+        probability_history_list.append(probability)
+        #result_list,score, probability = anneal_step(G, result_list, score,start_temp-step_size*time, verbose)
+    return result_list,score_history_list, probability_history_list
 
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
