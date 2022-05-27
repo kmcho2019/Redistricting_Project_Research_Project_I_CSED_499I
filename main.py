@@ -644,6 +644,8 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     anneal_graph_list.append(anneal_state_score)
     print(init_graph_list)
     print(anneal_graph_list)
+    init_graph_list.insert(13, (init_graph_list[9]/init_graph_list[7]))
+    anneal_graph_list.insert(13, (anneal_graph_list[9]/anneal_graph_list[7]))
     init_graph_list = [str(x) for x in init_graph_list]
     anneal_graph_list = [str(x) for x in anneal_graph_list]
     print(init_graph_list)
@@ -662,8 +664,7 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     init_graph_list.insert(0,header_list[1])
     anneal_graph_list.insert(0,header_list[2])
     element_list.insert(13,'stdev/mean')
-    init_graph_list.insert(13, str(init_graph_list[9]/init_graph_list[7]))
-    anneal_graph_list.insert(13, str(anneal_graph_list[9]/anneal_graph_list[7]))
+
     #print('%-20s %s' % (header_list[0], header_list[1], header_list[2]))
     #print(f"{'Partitions' : <20}{'Init Part' : ^20}{'Anneal Part' : ^20}")
     for i in range(len(init_graph_list)):
