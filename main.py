@@ -623,10 +623,15 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, iter_per_epoch
         current_temp = current_temp * alpha #start_temp/((time**alpha) + 1)
         for epoch_iter in range(iter_per_epoch):
             result_list, score, probability = anneal_step(G, result_list, score, current_temp, verbose)
+            if score < min(score_history_list):
+                min_part_config = result_list
+                min_score = score
             score_history_list.append(score)
             probability_history_list.append(probability)
+
         #result_list,score, probability = anneal_step(G, result_list, score,start_temp-step_size*time, verbose)
-    return result_list,score_history_list, probability_history_list
+        log_list =[score_history_list, probability_history_list,[min_score, min_part_config]]
+    return result_list, log_list
 
 def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, anneal_part_list: list):
     init_graph_list = [*(calculate_graph_result(G, init_part_list, True))]
