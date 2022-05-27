@@ -37,13 +37,13 @@ for line in nx.generate_adjlist(new_Sejong_G):
 print(list(nx.selfloop_edges(new_Sejong_G)))
 new_Sejong_G.remove_edges_from(nx.selfloop_edges(new_Sejong_G))
 nx.write_adjlist(new_Sejong_G, "merged_sejong_auto.adjlist")
-nx.draw(new_Sejong_G)
-plt.show()
+#nx.draw(new_Sejong_G)  //causes errors in WSL2 environment
+#plt.show()
 
 p_layout = nx.planar_layout(new_Sejong_G)
 
-nx.draw(new_Sejong_G, p_layout)
-plt.show()
+#nx.draw(new_Sejong_G, p_layout)
+#plt.show()
 
 for line in nx.generate_adjlist(new_Sejong_G):
     print(line)
@@ -242,9 +242,11 @@ min_score_list = log_list[2]
 score_fig = plt.figure(1)
 plt.plot(score_history_list)
 plt.savefig('score_history.png')
+plt.close(score_fig)
 prob_fig = plt.figure(2)
 plt.plot(probability_history_list)
 plt.savefig('prob_history.png')
+plt.close(prob_fig)
 
 #print(score_history_list)
 #print(probability_history_list)

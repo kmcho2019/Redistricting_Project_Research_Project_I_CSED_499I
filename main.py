@@ -8,6 +8,7 @@ import copy
 import enum
 import statistics
 import math
+import datetime
 
 '''
 #General Algorithm
@@ -621,6 +622,8 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, iter_per_epoch
     probability_history_list.append(probability)
     current_temp = start_temp
     min_score = score
+    min_part_config = result_list
+    log_list = [score_history_list, probability_history_list, [min_score, min_part_config]]
     for time in range(epoch_num):
         current_temp = current_temp * alpha #start_temp/((time**alpha) + 1)
         for epoch_iter in range(iter_per_epoch):
@@ -663,7 +666,7 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     element_list.insert(0,header_list[0])
     init_graph_list.insert(0,header_list[1])
     anneal_graph_list.insert(0,header_list[2])
-    element_list.insert(13,'stdev/mean')
+    element_list.insert(14,'stdev/mean')
 
     #print('%-20s %s' % (header_list[0], header_list[1], header_list[2]))
     #print(f"{'Partitions' : <20}{'Init Part' : ^20}{'Anneal Part' : ^20}")
@@ -678,6 +681,22 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
 
     #(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_vote, party_1_district_won, party_2_district_won,
     # party_3_district_won, pop_avg, pop_variance, pop_stdev, party_1_wasted_vote, party_2_wasted_vote, graph_efficiency_gap,tied_districts)
+
+def generate_log_file(log_file_name, init_part, result_list, score_history_list, min_score_list):
+    sejong_test_file = open(log_file_name, 'a')
+    sejong_test_file.write('====================\n')
+    sejong_test_file.writelines(str(datetime.datetime.now()) + str('\n'))
+    sejong_test_file.write('Initial Partition: \n')
+    sejong_test_file.writelines([str(x) for x in init_part])
+    sejong_test_file.writelines(['\nInitial Partition Score: ', str(score_history_list[0])])
+    sejong_test_file.write('\nFinal Anneal Partition: ')
+    sejong_test_file.writelines([str(x) for x in result_list])
+    sejong_test_file.writelines(['\nFinal Anneal Score: ', str(score_history_list[-1])])
+    sejong_test_file.write('\nMin Anneal Partition: ')
+    sejong_test_file.writelines([str(x) for x in min_score_list[1]])
+    sejong_test_file.writelines(['\nMin Anneal Score: ', str(min_score_list[0])])
+    sejong_test_file.write('\n===================\n')
+    sejong_test_file.close()
 
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
