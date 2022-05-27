@@ -544,6 +544,7 @@ def print_graph_result(graph_pop, graph_vote, graph_party_1_vote, graph_party_2_
     print('Tied Districts: ', tied_districts)
     print('Party1 Wasted Votes: ', party_1_wasted_vote)
     print('Party2 Wasted Votes: ', party_2_wasted_vote)
+    print('Stdev/Mean Ratio(Used in Scoring Function): ', pop_stdev/pop_avg)
     print('Efficiency Gap: ', graph_efficiency_gap, '(%) (Negative values favor Party1 while positive values favor '
                                                     'Party2.)')
 
@@ -619,11 +620,12 @@ def graph_simulated_annealing(G: nx.Graph(), partition_node_list, iter_per_epoch
     score_history_list.append(score)
     probability_history_list.append(probability)
     current_temp = start_temp
+    min_score = score
     for time in range(epoch_num):
         current_temp = current_temp * alpha #start_temp/((time**alpha) + 1)
         for epoch_iter in range(iter_per_epoch):
             result_list, score, probability = anneal_step(G, result_list, score, current_temp, verbose)
-            if score < min(score_history_list):
+            if score < min_score:
                 min_part_config = result_list
                 min_score = score
             score_history_list.append(score)
@@ -659,6 +661,9 @@ def compare_before_after_graph_anneal(G: nx.Graph(), init_part_list: list, annea
     element_list.insert(0,header_list[0])
     init_graph_list.insert(0,header_list[1])
     anneal_graph_list.insert(0,header_list[2])
+    element_list.insert(13,'stdev/mean')
+    init_graph_list.insert(13, str(init_graph_list[9]/init_graph_list[7]))
+    anneal_graph_list.insert(13, str(anneal_graph_list[9]/anneal_graph_list[7]))
     #print('%-20s %s' % (header_list[0], header_list[1], header_list[2]))
     #print(f"{'Partitions' : <20}{'Init Part' : ^20}{'Anneal Part' : ^20}")
     for i in range(len(init_graph_list)):
