@@ -269,3 +269,24 @@ sejong_test_file.writelines([str(x) for x in min_score_list[1]])
 sejong_test_file.writelines(['\nMin Anneal Score: ', str(min_score_list[0])])
 sejong_test_file.write('\n===================\n')
 sejong_test_file.close()
+
+for i in new_Sejong_G.nodes():
+    if i in init_part[0]:
+        new_Sejong_G.nodes[i][Dict_Trait.color] = 0
+    else:
+        new_Sejong_G.nodes[i][Dict_Trait.color] = 1
+
+color_state_map = {0: 'blue', 1: 'red'}
+nx.draw(new_Sejong_G, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in new_Sejong_G.nodes(data=True)], with_labels=True)
+plt.savefig('sejong_test_init_part_graph.png')
+plt.close()
+
+#min partition color
+for i in new_Sejong_G.nodes():
+    if i in min_score_list[1][0]:
+        new_Sejong_G.nodes[i][Dict_Trait.color] = 0
+    else:
+        new_Sejong_G.nodes[i][Dict_Trait.color] = 1
+nx.draw(new_Sejong_G, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in new_Sejong_G.nodes(data=True)], with_labels=True)
+plt.savefig('sejong_test_min_part_graph.png')
+plt.close()

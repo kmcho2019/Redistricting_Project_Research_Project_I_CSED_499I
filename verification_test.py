@@ -91,6 +91,31 @@ plt.savefig('verification_prob_history.png')
 plt.close(prob_fig)
 print(score_history_list)
 
-nx.draw_planar(G,with_labels=True)
+
+nx.draw_planar(G,  with_labels=True)
 plt.savefig('verification_graph.png')
 plt.close()
+
+#init_part_color_map = [dict((init_part[0][i]): 'blue' if i< 8 else (init_part[1][i-8]): 'red') for i in range(16)]
+#init partition color
+for i in range(16):
+    if i in init_part[0]:
+        G.nodes[i]['color'] = 0
+    else:
+        G.nodes[i]['color'] = 1
+
+color_state_map = {0: 'blue', 1: 'red'}
+nx.draw_planar(G, node_color=[color_state_map[node[1]['color']] for node in G.nodes(data=True)], with_labels=True)
+plt.savefig('verification_init_part_graph.png')
+plt.close()
+
+#min partition color
+for i in range(16):
+    if i in min_score_list[1][0]:
+        G.nodes[i]['color'] = 0
+    else:
+        G.nodes[i]['color'] = 1
+nx.draw_planar(G, node_color=[color_state_map[node[1]['color']] for node in G.nodes(data=True)], with_labels=True)
+plt.savefig('verification_min_part_graph.png')
+plt.close()
+generate_log_file('verification_test_log.txt', init_part,result_list,score_history_list,min_score_list)
