@@ -1,4 +1,7 @@
+import networkx as nx
+
 from main import*
+import pandas as pd
 
 edge_list = [
     (0,1),
@@ -34,7 +37,7 @@ print(len(edge_list))
 
 G = nx.Graph()
 G.add_edges_from(edge_list)
-print(nx.is_planar(G))
+print(nx.check_planarity(G,False))
 
 fixed1_pop = [2673,2071,2043,869,789,756,539,260]
 fixed1_party1 = [1008,737,705,645,425,264,126,90]
@@ -119,3 +122,75 @@ nx.draw_planar(G, node_color=[color_state_map[node[1]['color']] for node in G.no
 plt.savefig('verification_min_part_graph.png')
 plt.close()
 generate_log_file('verification_test_log.txt', init_part,result_list,score_history_list,min_score_list)
+
+
+#########################
+#Checking all possible permutations
+
+#converts integers organized in binary format to graph partitions
+#operates on 16 nodes or 16 bits
+# 2^0 corresponds to node 0 status, 2^1 corresponds to node 1 status, ... 2^15 corresponds to node 15 status
+# 0 indicates that the node belongs to partition 0, 1 indicates that the node belongs to partition 1
+def binary_to_graph_partition(binary_gray_codes: int):
+    l = [[],[]] # 0th list-> partition 0, 1th list-> partition 1
+    for i in range(16):
+        if binary_gray_codes % (10 ** i) == 0:
+            l[0].append(i)
+        else:
+            l[1].append(i)
+    return l
+
+#Accept two partitions of graph G and return True if both partitions are contiguity else return False
+def check_contiguity_of_part(G:nx.Graph(), part_list):
+    if len(part_list[0]) == 0 or len(part_list[1]) == 0: #consider any empty subgraph as being uncontiguous
+        return False
+    else:
+        part0 = G.subgraph(part_list[0])
+        part1 = G.subgraph(part_list[1])
+        if nx.is_connected(part0) and nx.is_connected(part1):
+            return True
+        else:
+            return False
+
+
+gray_code = pd.read_csv('Gray code.csv')
+print(gray_code)
+print(gray_code.info())
+# 16 bit, contiguity, score
+gray_code = gray_code.assign(contiguity = bool(0))
+gray_code = gray_code.assign(score = 0.)
+print(gray_code.info())
+data_array = gray_code.to_numpy()
+print(data_array)
+for config in data_array:
+    partition_list = binary_to_graph_partition(config[2])
+    #print(partition_list)
+    config[3] = check_contiguity_of_part(G,partition_list)
+    if config[3]:
+        config[4] = compute_state_score(G, partition_list)
+    else:
+        config[4] = 1.0 # score set to max value because it does not exist
+gray_array = data_array[:,[2]]
+contiguity_array = data_array[:,[3]]
+score_array = data_array[:,[4]]
+print('Total number of False in contiguity_array: ', (contiguity_array == False).sum())
+print('Total number of 0.0 in score_array: ', (score_array == 0.0).sum())
+gray_array = [x[0] for x in gray_array]
+contiguity_array = [x[0] for x in contiguity_array]
+score_array = [x[0] for x in score_array]
+plt.plot(score_array)
+plt.savefig('verification_complete_score_curve.png')
+plt.close()
+'''
+plt.yscale('log')
+plt.plot(score_array)
+plt.show()
+'''
+#print(data_array)
+#print(gray_array)
+#print(contiguity_array)
+#print(score_array)
+
+output_df =pd.DataFrame(data_array, columns=['dec','bin','gray','contiguity','score'])
+print(output_df)
+output_df.to_csv('Complete_Graph_Permutation_Score_Computed.csv', index=False)
