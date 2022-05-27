@@ -1,4 +1,5 @@
 from main import *
+import datetime
 
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'color': 'white'})
@@ -252,3 +253,17 @@ print('is planar?(normalized_Sejong_G): ',nx.is_planar(normalized_Sejong_G))
 print(min_score_list)
 
 compare_before_after_graph_anneal(new_Sejong_G, init_part,min_score_list[1])
+sejong_test_file = open('sejong_test_log.txt','a')
+sejong_test_file.write('====================\n')
+sejong_test_file.writelines(str(datetime.datetime.now()) + str('\n'))
+sejong_test_file.write('Initial Partition: \n')
+sejong_test_file.writelines([str(x) for x in init_part])
+sejong_test_file.writelines(['\nInitial Partition Score: ', str(score_history_list[0])])
+sejong_test_file.write('\nFinal Anneal Partition: ')
+sejong_test_file.writelines([str(x) for x in result_list])
+sejong_test_file.writelines(['\nFinal Anneal Score: ', str(score_history_list[-1])])
+sejong_test_file.write('\nMin Anneal Partition: ')
+sejong_test_file.writelines([str(x) for x in min_score_list[1]])
+sejong_test_file.writelines(['\nMin Anneal Score: ', str(min_score_list[0])])
+sejong_test_file.write('\n===================\n')
+sejong_test_file.close()
