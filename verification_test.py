@@ -134,7 +134,7 @@ generate_log_file('verification_test_log.txt', init_part,result_list,score_histo
 def binary_to_graph_partition(binary_gray_codes: int):
     l = [[],[]] # 0th list-> partition 0, 1th list-> partition 1
     for i in range(16):
-        if binary_gray_codes % (10 ** i) == 0:
+        if (binary_gray_codes // (10 ** i)) % 10 == 0:
             l[0].append(i)
         else:
             l[1].append(i)
@@ -181,11 +181,11 @@ score_array = [x[0] for x in score_array]
 plt.plot(score_array)
 plt.savefig('verification_complete_score_curve.png')
 plt.close()
-'''
-plt.yscale('log')
+
+#plt.yscale('log')
 plt.plot(score_array)
 plt.show()
-'''
+
 #print(data_array)
 #print(gray_array)
 #print(contiguity_array)
