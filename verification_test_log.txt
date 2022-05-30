@@ -1,0 +1,900 @@
+====================
+2022-05-27 12:43:03.504394
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 1  2  4  5  6  7  9 10][ 0  3  8 11 12 13 14 15]
+Final Anneal Score: 0.01330378425849301
+Min Anneal Partition: [ 6  8  9 10 11 12 13 14][ 0  1  2  3  4  5  7 15]
+Min Anneal Score: 0.0001914213562373095
+===================
+====================
+2022-05-27 12:43:12.817163
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 0  2  3  4  5  6  7 11 12][ 1  8  9 10 13 14 15]
+Final Anneal Score: 0.036848611075682075
+Min Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 12:43:18.535074
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 0  1  7  8  9 12][ 2  3  4  5  6 10 11 13 14 15]
+Final Anneal Score: 0.03589150429449553
+Min Anneal Partition: [ 0  1  2  3  4  5  7 15][ 6  8  9 10 11 12 13 14]
+Min Anneal Score: 0.0001914213562373095
+===================
+====================
+2022-05-27 12:43:25.236961
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.17649049045079937
+Final Anneal Partition: [ 0  1  2  3  4  5  6 15][ 7  8  9 10 11 12 13 14]
+Final Anneal Score: 0.026511857838867368
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 12:48:20.204977
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.26406576092936845
+Final Anneal Partition: [ 0  1  2  3  7 11 15][ 4  5  6  8  9 10 12 13 14]
+Final Anneal Score: 0.01349520561473032
+Min Anneal Partition: [ 0  1  8  9 10][ 2  3  4  5  6  7 11 12 13 14 15]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 12:50:25.283708
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.26406576092936845
+Final Anneal Partition: [ 2  8  9 10 11 14 15][ 0  1  3  4  5  6  7 12 13]
+Final Anneal Score: 0.0066040367901871785
+Min Anneal Partition: [ 3  8  9 10 11 12 13 15][ 0  1  2  4  5  6  7 14]
+Min Anneal Score: 0.0026798989873223333
+===================
+====================
+2022-05-27 12:50:35.279703
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 2  3  4  8  9 10 12][ 0  1  5  6  7 11 13 14 15]
+Min Anneal Score: 0.0006699747468305833
+===================
+====================
+2022-05-27 13:10:43.585446
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [ 1  2  3  4  5 10 11 15][ 0  6  7  8  9 12 13 14]
+Final Anneal Score: 0.013590916292848976
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 13:11:38.129864
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 1  9 10 11 12 13 14][ 0  2  3  4  5  6  7  8 15]
+Final Anneal Score: 0.0291917568261897
+Min Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 13:15:27.680654
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 0  4  5  6  7  8 12 13 14 15][ 1  2  3  9 10 11]
+Final Anneal Score: 0.019907821048680188
+Min Anneal Partition: [ 0  2  3  5  6  7  8 12][ 1  4  9 10 11 13 14 15]
+Min Anneal Score: 0.0027756096654409875
+===================
+====================
+2022-05-27 13:15:54.541530
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 0  3  4  5  7  8 12 13 14][ 1  2  6  9 10 11 15]
+Final Anneal Score: 9.571067811865475e-05
+Min Anneal Partition: [ 0  3  4  5  7  8 12 13 14][ 1  2  6  9 10 11 15]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-27 13:16:35.587841
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 2  8  9 10 11 13 15][ 0  1  3  4  5  6  7 12 14]
+Final Anneal Score: 0.014548023074035523
+Min Anneal Partition: [ 0  1  8  9 10][ 2  3  4  5  6  7 11 12 13 14 15]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 13:18:07.115117
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 0  1  8  9 10][ 2  3  4  5  6  7 11 12 13 14 15]
+Final Anneal Score: 0.0013399494936611666
+Min Anneal Partition: [ 3  4  8  9 11 12 13 14 15][ 0  1  2  5  6  7 10]
+Min Anneal Score: 0.0012442388155425117
+===================
+====================
+2022-05-27 13:18:23.979188
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 0  1  8  9 13 14][ 2  3  4  5  6  7 10 11 12 15]
+Final Anneal Score: 0.00765685424949238
+Min Anneal Partition: [ 0  3  4  5  7  8 12 13 14][ 1  2  6  9 10 11 15]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-27 13:18:33.273680
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 1  2  3  4  5  6 11 14 15][ 0  7  8  9 10 12 13]
+Final Anneal Score: 0.01426089103967956
+Min Anneal Partition: [ 3  4  8 10 11 12 13 14 15][0 1 2 5 6 7 9]
+Min Anneal Score: 0.007082590180780452
+===================
+====================
+2022-05-27 13:18:41.868968
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.17649049045079937
+Final Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Final Anneal Score: 0.0
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 13:22:05.214052
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [ 1  2  3  4  5 10 11 15][ 0  6  7  8  9 12 13 14]
+Final Anneal Score: 0.013590916292848976
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 15:34:10.590166
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 0  6  7  8 11 12 13 14 15][ 1  2  3  4  5  9 10]
+Final Anneal Score: 0.0066040367901871785
+Min Anneal Partition: [ 6  8  9 10 11 12 13 14][ 0  1  2  3  4  5  7 15]
+Min Anneal Score: 0.0001914213562373095
+===================
+====================
+2022-05-27 15:35:08.781437
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 2  7  8  9 10 11 12][ 0  1  3  4  5  6 13 14 15]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-27 15:35:18.969177
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 1  2  8  9 10 13][ 0  3  4  5  6  7 11 12 14 15]
+Final Anneal Score: 0.02679898987322333
+Min Anneal Partition: [ 2  3  9 10 11 13 14 15][ 0  1  4  5  6  7  8 12]
+Min Anneal Score: 0.0022013455967290593
+===================
+====================
+2022-05-27 20:26:36.874764
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 0  3  8  9 10 11][ 1  2  4  5  6  7 12 13 14 15]
+Final Anneal Score: 0.018185028842544405
+Min Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 20:28:27.902967
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [0 1 2 3 6 8][ 4  5  7  9 10 11 12 13 14 15]
+Final Anneal Score: 0.0032541630560342615
+Min Anneal Partition: [ 0  1  4  5  6  7  8 12][ 2  3  9 10 11 13 14 15]
+Min Anneal Score: 0.0022013455967290593
+===================
+====================
+2022-05-27 20:30:45.557012
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 2  3  4  9 10 11 14 15][ 0  1  5  6  7  8 12 13]
+Final Anneal Score: 0.010719595949289333
+Min Anneal Partition: [ 1  2  6  9 10 11 15][ 0  3  4  5  7  8 12 13 14]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-27 20:34:40.351863
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 3  4  7  9 10 11 12 13 14 15][0 1 2 5 6 8]
+Final Anneal Score: 0.007561143571373726
+Min Anneal Partition: [ 2  3  9 10 11 13 14 15][ 0  1  4  5  6  7  8 12]
+Min Anneal Score: 0.0022013455967290593
+===================
+====================
+2022-05-27 20:35:42.552828
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.26406576092936845
+Final Anneal Partition: [ 0  1  5  6  7  8 12 14][ 2  3  4  9 10 11 13 15]
+Final Anneal Score: 0.0027756096654409875
+Min Anneal Partition: [ 0  1  8  9 10][ 2  3  4  5  6  7 11 12 13 14 15]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 20:53:38.402989
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 0  2  3  4  5  7 12 13 14][ 1  6  8  9 10 11 15]
+Final Anneal Score: 0.019620689014324226
+Min Anneal Partition: [ 1  2  3  4  6  9 11 15][ 0  5  7  8 10 12 13 14]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 20:54:15.801059
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.17649049045079937
+Final Anneal Partition: [ 0  1  2  3  6 11 15][ 4  5  7  8  9 10 12 13 14]
+Final Anneal Score: 0.013208073580374357
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 20:55:29.774762
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.26406576092936845
+Final Anneal Partition: [ 1  2  5  8  9 10][ 0  3  4  6  7 11 12 13 14 15]
+Final Anneal Score: 0.010719595949289333
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 20:59:15.391529
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 0  4  5  6  7  8 12 13 14 15][ 1  2  3  9 10 11]
+Final Anneal Score: 0.019907821048680188
+Min Anneal Partition: [ 3  4  7  9 10 11 12 13 14 15][0 1 2 5 6 8]
+Min Anneal Score: 0.007561143571373726
+===================
+====================
+2022-05-27 20:59:36.273218
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 1  2  6  9 10 11 15][ 0  3  4  5  7  8 12 13 14]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-27 20:59:57.401860
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 2  3  4  5  6  7  8 12 13 14][ 0  1  9 10 11 15]
+Final Anneal Score: 0.008613961030678928
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 21:05:17.680441
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 1  2  3  4  5  6 11 13 15][ 0  7  8  9 10 12 14]
+Min Anneal Score: 0.0063169047558312135
+===================
+====================
+2022-05-27 21:06:48.595761
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [0 1 2 3 6 9][ 4  5  7  8 10 11 12 13 14 15]
+Final Anneal Score: 0.006986879502661797
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 21:08:57.146223
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.26406576092936845
+Final Anneal Partition: [ 2  3  4  9 10 11 14 15][ 0  1  5  6  7  8 12 13]
+Final Anneal Score: 0.010719595949289333
+Min Anneal Partition: [ 0  1  2  3  4  5 14][ 6  7  8  9 10 11 12 13 15]
+Min Anneal Score: 0.004019848480983499
+===================
+====================
+2022-05-27 21:13:53.989226
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 3  4  5  6  9 10 11 13 14 15][ 0  1  2  7  8 12]
+Final Anneal Score: 0.006125483399593904
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 21:17:16.673411
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 0  1  6  9 10 11][ 2  3  4  5  7  8 12 13 14 15]
+Final Anneal Score: 0.008805382386916237
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 21:21:47.299889
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 0  5  6  7  8  9 12 13][ 1  2  3  4 10 11 14 15]
+Final Anneal Score: 0.021726323932934628
+Min Anneal Partition: [ 1  2  3  8  9 11][ 0  4  5  6  7 10 12 13 14 15]
+Min Anneal Score: 0.00382842712474619
+===================
+====================
+2022-05-27 21:24:37.655509
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [ 4  5  8 10 11 12 13 14 15][0 1 2 3 6 7 9]
+Final Anneal Score: 0.017897896808188436
+Min Anneal Partition: [ 6  8  9 10 11 12 13 14][ 0  1  2  3  4  5  7 15]
+Min Anneal Score: 0.0001914213562373095
+===================
+====================
+2022-05-27 21:29:34.459097
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 1  2  3  4  9 11 13 15][ 0  5  6  7  8 10 12 14]
+Final Anneal Score: 0.035508661582020914
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 21:30:56.071382
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 3  4  5  8  9 10 11 15][ 0  1  2  6  7 12 13 14]
+Final Anneal Score: 0.03837998192558056
+Min Anneal Partition: [ 0  1  4  5  6  7  8 12][ 2  3  9 10 11 13 14 15]
+Min Anneal Score: 0.0022013455967290593
+===================
+====================
+2022-05-27 21:36:32.576784
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 0  4  8 11 12 13 14 15][ 1  2  3  5  6  7  9 10]
+Final Anneal Score: 0.005646930009000631
+Min Anneal Partition: [ 0  4  8 11 12 13 14 15][ 1  2  3  5  6  7  9 10]
+Min Anneal Score: 0.005646930009000631
+===================
+====================
+2022-05-27 21:37:33.072840
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 0  1  3  4  5  6 11 13][ 2  7  8  9 10 12 14 15]
+Final Anneal Score: 0.0025841883092036786
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-27 21:39:38.779276
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 0  1  8  9 10][ 2  3  4  5  6  7 11 12 13 14 15]
+Final Anneal Score: 0.0013399494936611666
+Min Anneal Partition: [ 1  3  4  9 10 11 13 15][ 0  2  5  6  7  8 12 14]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-27 21:49:08.571068
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 0  1  2  7  8 12][ 3  4  5  6  9 10 11 13 14 15]
+Final Anneal Score: 0.006125483399593904
+Min Anneal Partition: [ 0  1  2  4  5 10][ 3  6  7  8  9 11 12 13 14 15]
+Min Anneal Score: 0.00028713203435596426
+===================
+====================
+2022-05-27 22:00:33.015227
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 0  5  7  8 10 12 13 14][ 1  2  3  4  6  9 11 15]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-27 22:03:46.320168
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 1  2  3  4  5  6  7 11 14 15][ 0  8  9 10 12 13]
+Final Anneal Score: 0.010623885271170678
+Min Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 18:39:09.343531
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 18:45:43.971257
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Final Anneal Score: 0.0
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 18:47:19.505503
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.17649049045079937
+Final Anneal Partition: [ 0  1  8  9 13 14][ 2  3  4  5  6  7 10 11 12 15]
+Final Anneal Score: 0.00765685424949238
+Min Anneal Partition: [ 0  1  2  5  6  7 10][ 3  4  8  9 11 12 13 14 15]
+Min Anneal Score: 0.0012442388155425117
+===================
+====================
+2022-05-30 19:01:05.166141
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 2  3  4  5 10 11 13 14 15][ 0  1  6  7  8  9 12]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:02:34.108186
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Final Anneal Score: 0.0013399494936611666
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:10:01.673122
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 1  2  3  4  5  6 12 13 14][ 0  7  8  9 10 11 15]
+Final Anneal Score: 0.011293860018001261
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:11:15.300467
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [ 0  3  4  5  6  7  8 11 12][ 1  2  9 10 13 14 15]
+Final Anneal Score: 0.01732363273947651
+Min Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 19:13:22.833590
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 0  1  9 10 11 15][ 2  3  4  5  6  7  8 12 13 14]
+Final Anneal Score: 0.008613961030678928
+Min Anneal Partition: [ 0  1  2  4  5  7 14 15][ 3  6  8  9 10 11 12 13]
+Min Anneal Score: 0.0028713203435596427
+===================
+====================
+2022-05-30 19:13:42.135269
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 3  4  8  9 10 11 12 15][ 0  1  2  5  6  7 13 14]
+Final Anneal Score: 0.010241042558696057
+Min Anneal Partition: [ 2  5  6  8  9 10 11][ 0  1  3  4  7 12 13 14 15]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 19:14:16.775122
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 3  4  5  6  9 10 11 13 14 15][ 0  1  2  7  8 12]
+Final Anneal Score: 0.006125483399593904
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:15:21.676909
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 3  4  7  9 10 11 12 13 14 15][0 1 2 5 6 8]
+Final Anneal Score: 0.007561143571373726
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:17:16.471041
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [ 0  1  4  5  6  9 10][ 2  3  7  8 11 12 13 14 15]
+Final Anneal Score: 0.022109166645409246
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:17:43.777789
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 2  3  4  9 10 11 14 15][ 0  1  5  6  7  8 12 13]
+Final Anneal Score: 0.010719595949289333
+Min Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 19:18:09.895544
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 3  4  5  6  7  8  9 12 13 14 15][ 0  1  2 10 11]
+Final Anneal Score: 0.013016652224137046
+Min Anneal Partition: [ 2  7  8  9 10 11 12][ 0  1  3  4  5  6 13 14 15]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-30 19:18:51.319964
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 2  3  4  5  6  7 10 11 14 15][ 0  1  8  9 12 13]
+Final Anneal Score: 0.027660385976291224
+Min Anneal Partition: [ 3  8  9 10 11 12 13 15][ 0  1  2  4  5  6  7 14]
+Min Anneal Score: 0.0026798989873223333
+===================
+====================
+2022-05-30 19:19:12.691259
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:23:04.083963
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.26406576092936845
+Final Anneal Partition: [1 2 3 4 5 8 9][ 0  6  7 10 11 12 13 14 15]
+Final Anneal Score: 0.009475357133746821
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:30:51.873154
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 3  4  8  9 10 11 12 15][ 0  1  2  5  6  7 13 14]
+Final Anneal Score: 0.010241042558696057
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:36:10.839326
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 0  6  7  8  9 10 12][ 1  2  3  4  5 11 13 14 15]
+Final Anneal Score: 0.022587720036002523
+Min Anneal Partition: [ 0  1  4  5  6  7  8 12][ 2  3  9 10 11 13 14 15]
+Min Anneal Score: 0.0022013455967290593
+===================
+====================
+2022-05-30 19:37:05.535113
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Final Anneal Score: 0.0013399494936611666
+Min Anneal Partition: [ 0  1  8  9 10][ 2  3  4  5  6  7 11 12 13 14 15]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 19:37:31.613927
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 2  3  4  5  6  7  9 10 11][ 0  1  8 12 13 14 15]
+Final Anneal Score: 0.00622119407771256
+Min Anneal Partition: [ 2  3  4  5  6  7 11 12 13 14 15][ 0  1  8  9 10]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 19:38:59.293129
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 0  4  8 11 12 13 14 15][ 1  2  3  5  6  7  9 10]
+Final Anneal Score: 0.005646930009000631
+Min Anneal Partition: [ 0  1  4  5  6  7  8 12][ 2  3  9 10 11 13 14 15]
+Min Anneal Score: 0.0022013455967290593
+===================
+====================
+2022-05-30 19:41:47.185835
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 3  4  5  6  9 10 11 13 14 15][ 0  1  2  7  8 12]
+Final Anneal Score: 0.006125483399593904
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:42:47.538251
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 2  3  4  5 10 11 13 14 15][ 0  1  6  7  8  9 12]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:44:32.143007
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 5  6  8  9 10 11 13 14 15][ 0  1  2  3  4  7 12]
+Final Anneal Score: 0.023449116139070414
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:46:14.257330
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Final Anneal Score: 0.0
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:47:14.668812
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 3  4  8  9 11 12 13 14 15][ 0  1  2  5  6  7 10]
+Final Anneal Score: 0.0012442388155425117
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 19:53:29.457003
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.184625898090885
+Final Anneal Partition: [0 1 2 5 6 8][ 3  4  7  9 10 11 12 13 14 15]
+Final Anneal Score: 0.007561143571373726
+Min Anneal Partition: [ 0  1  4  5  6  7  8 12][ 2  3  9 10 11 13 14 15]
+Min Anneal Score: 0.0022013455967290593
+===================
+====================
+2022-05-30 19:58:30.573697
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 0  1  4  5  6  8 14 15][ 2  3  7  9 10 11 12 13]
+Final Anneal Score: 0.004306980515339464
+Min Anneal Partition: [ 0  1  8  9 10][ 2  3  4  5  6  7 11 12 13 14 15]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 19:58:51.485872
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 2  3  4  9 10 11 14 15][ 0  1  5  6  7  8 12 13]
+Final Anneal Score: 0.010719595949289333
+Min Anneal Partition: [ 2  7  8  9 10 11 12][ 0  1  3  4  5  6 13 14 15]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-30 19:59:51.897612
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [ 0  3  4  5  7 11 12 13 14 15][ 1  2  6  8  9 10]
+Final Anneal Score: 0.01004962120245875
+Min Anneal Partition: [ 0  3  4  5  7  8 12 13 14][ 1  2  6  9 10 11 15]
+Min Anneal Score: 9.571067811865475e-05
+===================
+====================
+2022-05-30 20:00:09.246308
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Final Anneal Score: 0.0
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 20:01:02.387687
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 4  5  7  9 10 11 12 13 14 15][0 1 2 3 6 8]
+Final Anneal Score: 0.0032541630560342615
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 20:02:03.071665
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 1  6  8  9 10 11 15][ 0  2  3  4  5  7 12 13 14]
+Final Anneal Score: 0.019620689014324226
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 20:06:26.342501
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 0  3  4  5  6  7 11 12 13 15][ 1  2  8  9 10 14]
+Final Anneal Score: 0.018855003589374985
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 20:07:07.138095
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.06163767670841366
+Final Anneal Partition: [ 0  1  6  7  8  9 12][ 2  3  4  5 10 11 13 14 15]
+Final Anneal Score: 0.01569655121145938
+Min Anneal Partition: [ 8  9 10 11 12 13 14 15][0 1 2 3 4 5 6 7]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 20:07:52.508226
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.299670133189508
+Final Anneal Partition: [ 4  5  6  8  9 10 12 13 14][ 0  1  2  3  7 11 15]
+Final Anneal Score: 0.01349520561473032
+Min Anneal Partition: [ 0  1  5  6  7 11 13 14 15][ 2  3  4  8  9 10 12]
+Min Anneal Score: 0.0006699747468305833
+===================
+====================
+2022-05-30 20:29:01.428821
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.26406576092936845
+Final Anneal Partition: [ 2  3  4  5  6  7 10 11 14 15][ 0  1  8  9 12 13]
+Final Anneal Score: 0.027660385976291224
+Min Anneal Partition: [ 1  2  3  4  6  9 11 15][ 0  5  7  8 10 12 13 14]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 20:31:57.061068
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.052545162287141456
+Final Anneal Partition: [ 2  3  4  9 10 11 14 15][ 0  1  5  6  7  8 12 13]
+Final Anneal Score: 0.010719595949289333
+Min Anneal Partition: [ 0  1  5  6  7  8 12 14][ 2  3  4  9 10 11 13 15]
+Min Anneal Score: 0.0027756096654409875
+===================
+====================
+2022-05-30 20:32:32.440771
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.10413321779309637
+Final Anneal Partition: [ 1  2  3  4  5 10 11 15][ 0  6  7  8  9 12 13 14]
+Final Anneal Score: 0.013590916292848976
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================
+====================
+2022-05-30 20:35:56.659477
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 0  5  8  9 10 14 15][ 1  2  3  4  6  7 11 12 13]
+Final Anneal Score: 0.004689823227814083
+Min Anneal Partition: [ 2  3  4  9 10 11 13 15][ 0  1  5  6  7  8 12 14]
+Min Anneal Score: 0.0027756096654409875
+===================
+====================
+2022-05-30 20:41:24.458023
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 1  2  3  4  5  6  7 11 14 15][ 0  8  9 10 12 13]
+Final Anneal Score: 0.010623885271170678
+Min Anneal Partition: [ 1  2  3  4  6  9 11 15][ 0  5  7  8 10 12 13 14]
+Min Anneal Score: 0.0013399494936611666
+===================
+====================
+2022-05-30 20:44:27.315921
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.01569655121145938
+Final Anneal Partition: [ 1  2  3  4  6 10 11 15][ 0  5  7  8  9 12 13 14]
+Final Anneal Score: 0.007178300858899107
+Min Anneal Partition: [ 1  3  4  5  6  7 11 12 13 14 15][ 0  2  8  9 10]
+Min Anneal Score: 0.004019848480983499
+===================
+====================
+2022-05-30 20:46:15.198706
+Initial Partition: 
+[2, 3, 5, 4, 10, 11, 14, 15][0, 1, 7, 6, 8, 9, 12, 13]
+Initial Partition Score: 0.09408359659063763
+Final Anneal Partition: [ 0  1  4  5  6  7  8 12][ 2  3  9 10 11 13 14 15]
+Final Anneal Score: 0.0022013455967290593
+Min Anneal Partition: [0 1 2 3 4 5 6 7][ 8  9 10 11 12 13 14 15]
+Min Anneal Score: 0.0
+===================

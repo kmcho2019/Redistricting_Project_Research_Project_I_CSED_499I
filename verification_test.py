@@ -183,8 +183,8 @@ plt.savefig('verification_complete_score_curve.png')
 plt.close()
 
 #plt.yscale('log')
-plt.plot(score_array)
-plt.show()
+#plt.plot(score_array)
+#plt.show()
 
 #print(data_array)
 #print(gray_array)
@@ -194,3 +194,7 @@ plt.show()
 output_df =pd.DataFrame(data_array, columns=['dec','bin','gray','contiguity','score'])
 print(output_df)
 output_df.to_csv('Complete_Graph_Permutation_Score_Computed.csv', index=False)
+
+contig_df = output_df.drop(output_df[output_df.contiguity == False].index)
+print(contig_df)
+contig_df.to_csv('Contiguous_Graph_Score.csv')
