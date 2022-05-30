@@ -1,3 +1,5 @@
+import networkx as nx
+
 from main import *
 import datetime
 
@@ -281,12 +283,23 @@ nx.draw(new_Sejong_G, node_color=[color_state_map[node[1][Dict_Trait.color]] for
 plt.savefig('sejong_test_init_part_graph.png')
 plt.close()
 
+
+current_boundary_Sejong_A = [3611010600,3611011400, 3611010800,3611010400,3611010200,3611033000, 3611034000,3611035000]
+current_boundary_Sejong_B = [3611010100, 3611031000, 3611032000, 3611010300, 3611011200, 3611011600, 3611036000, 3611025000, 3611010900, 3611011100, 3611011300, 3611038000, 3611037000, 3611039000]
+current_boundary = [current_boundary_Sejong_A,current_boundary_Sejong_B]
+min_part =[[3611010400, 3611010800, 3611011400, 3611025000, 3611032000, 3611033000,
+ 3611034000, 3611035000, 3611036000, 3611037000, 3611038000, 3611039000],[3611010100, 3611010200, 3611010300, 3611010600, 3611010900, 3611011100,
+ 3611011200, 3611011300, 3611011600, 3611031000]]
+compare_before_after_graph_anneal(new_Sejong_G, current_boundary,min_part)
+
 #min partition color
 for i in new_Sejong_G.nodes():
-    if i in min_score_list[1][0]:
+    if i in min_part[0]:
         new_Sejong_G.nodes[i][Dict_Trait.color] = 0
     else:
         new_Sejong_G.nodes[i][Dict_Trait.color] = 1
 nx.draw(new_Sejong_G, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in new_Sejong_G.nodes(data=True)], with_labels=True)
 plt.savefig('sejong_test_min_part_graph.png')
 plt.close()
+
+

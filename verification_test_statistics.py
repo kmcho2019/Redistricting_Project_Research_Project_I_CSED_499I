@@ -5,7 +5,7 @@ import numpy as np
 from main import *
 from scipy import stats
 from verification_test import *
-
+import statistics
 columns = ['score']
 r_df = pd.read_csv('Contiguous_Graph_Score.csv', usecols=columns)
 print(r_df)
@@ -46,7 +46,7 @@ input_dict = {'score': simulated_score}
 df = pd.DataFrame(input_dict)
 df.to_csv('Verification_Simulation_result.csv')
 
-simulation_average = int(np.mean(simulated_score))
+simulation_average = sum(simulated_score)/len(simulated_score)#int(np.mean(simulated_score))
 simulation_5_percentile = np.percentile(simulated_score, 5)
 simulation_95_percentile = np.percentile(simulated_score, 95)
 simulation_max = max(simulated_score)
