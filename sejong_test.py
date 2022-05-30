@@ -243,10 +243,12 @@ min_score_list = log_list[2]
 
 score_fig = plt.figure(1)
 plt.plot(score_history_list)
+plt.title('Sejong Score Graph')
 plt.savefig('score_history.png')
 plt.close(score_fig)
 prob_fig = plt.figure(2)
 plt.plot(probability_history_list)
+plt.title('Sejong Probability Graph')
 plt.savefig('prob_history.png')
 plt.close(prob_fig)
 
