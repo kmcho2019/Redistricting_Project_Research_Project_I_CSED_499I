@@ -4,17 +4,17 @@ from main import *
 import pandas as pd
 
 #updated class to add x,y coordinates to trait
-class Dict_Trait(enum.Enum):
-    name = 0
-    id = 1
-    pop = 2
-    total_votes = 3
-    party_1 = 4
-    party_2 = 5
-    party_3 = 6  # Party 3 is whoever that gets the most votes besides the top 2 parties, independent or other parties
-    x_coord = 7
-    y_coord = 8
-    color = 9
+# class Dict_Trait(enum.Enum):
+#     name = 0
+#     id = 1
+#     pop = 2
+#     total_votes = 3
+#     party_1 = 4
+#     party_2 = 5
+#     party_3 = 6  # Party 3 is whoever that gets the most votes besides the top 2 parties, independent or other parties
+#     x_coord = 7
+#     y_coord = 8
+#     color = 9
 
 
 province_seat_allocation_dict = dict({'Seoul': 49, 'Busan': 18, 'Daegu': 12, 'Incheon': 13, 'Gwangju': 8, 'Daejeon': 7,
@@ -26,11 +26,11 @@ province_num_dict = dict({'Seoul': 1, 'Busan': 2, 'Daegu': 3, 'Incheon': 4, 'Gwa
                                       'Ulsan': 7, 'Sejong': 8, 'Gyeonggi': 9, 'Gangwon': 10, 'Chungbuk': 11,
                                       'Chungnam': 12, 'Jeonbuk': 13, 'Jeonnam': 14, 'Gyeongbuk': 15, 'Gyeongnam': 16,
                                       'Jeju': 17})
-
-region_name = 'Daejeon'
+size_of_node = 50
+region_name = 'Gyeonggi'
 region_num = province_num_dict[region_name]
 partition_number = province_seat_allocation_dict[region_name]
-iter_per_epoch = 200#100
+iter_per_epoch = 100#100
 
 Dict_format = dict(
     {'name': 'default', 'id': 0, 'pop': 0, 'total_votes': 0, 'party_1': 0, 'party_2': 0, 'x_coord': 0.0, 'y_coord':0.0,
@@ -40,11 +40,15 @@ Dict_format = dict(
 
 
 directory_name = r'./'
-directory_name = (directory_name + '%2d' + '_') % region_num
+directory_name = (directory_name + '%02d' + '_') % region_num
 directory_name = directory_name + region_name + '/'
 file_name = region_name + '_' + 'worksheet.xlsx'
 
 #file_name = r'Daejeon_admin_district_attributes_vba_macro.xlsm'
+
+print(directory_name)
+print(file_name)
+
 
 dfs = pd.read_excel(directory_name + file_name, sheet_name='Sheet1')#,encoding=sys.getfilesystemencoding())
 dfs.head()
@@ -53,7 +57,7 @@ name_head = dfs['ADM_DR_NM']
 #id_head = dfs['actual_admin_code']
 id_head = dfs['ADM_DR_CD'] #temporarily use non admin code until Admin_Neighbors can be properly be implemented
 
-pop_head = dfs['population']
+pop_head = dfs['Population']
 total_vote_head = dfs['Total Vote']
 party1_vote_head = dfs['Party 1 Vote']
 party2_vote_head = dfs['Party 2 Vote']
@@ -71,9 +75,11 @@ print(adj_list_head.iloc[1])
 
 
 node_num = 0
-for x in dfs['ADM_DR_CD'].iloc:
+for x in dfs['BASE_DATE'].iloc:
     #print(x)
-    if x > 0:
+    if pd.isna(x):
+        break
+    else:
         node_num = node_num + 1
 print(node_num)
 
@@ -88,7 +94,11 @@ party2_vote_list = []
 party3_vote_list = []
 x_coordinate_list = []
 y_coordinate_list = []
+normalized_x_coordinate_list = []
+normalized_y_coordinate_list = []
 
+print(id_head)
+print(node_num)
 for i in range(node_num):
     node_id_list.append(int(id_head.iloc[i]))
 
@@ -97,21 +107,45 @@ for i in range(node_num):
 
 for i in range(node_num):
     neighbor_str = adj_list_head[i]
-    str_list = neighbor_str.split(',')
-    node_num_list = [int(x) for x in str_list]
+    if isinstance(neighbor_str, str) == True:
+        str_list = neighbor_str.split(',')
+        node_num_list = [int(x) for x in str_list]
+    else:
+        node_num_list = [neighbor_str]
     for j in range(len(node_num_list)):
         if node_num_list[j] in node_id_list:
             edge_list.append((int(id_head.iloc[i]), node_num_list[j]))
     name_list.append(name_head.iloc[i])
     id_list.append(int(id_head.iloc[i]))
-    pop_list.append(int(pop_head.iloc[i]))
-    total_vote_list.append(int(total_vote_head.iloc[i]))
-    party1_vote_list.append(int(party1_vote_head.iloc[i]))
-    party2_vote_list.append(int(party2_vote_head.iloc[i]))
-    party3_vote_list.append(int(party3_vote_head.iloc[i]))
+    if pd.isna(pop_head.iloc[i]):
+        pop_list.append(0)
+    else:
+        pop_list.append(int(pop_head.iloc[i]))
+
+    if pd.isna(total_vote_head.iloc[i]):
+        total_vote_list.append(0)
+    else:
+        total_vote_list.append(int(total_vote_head.iloc[i]))
+
+    if pd.isna(party1_vote_head.iloc[i]):
+        party1_vote_list.append(0)
+    else:
+        party1_vote_list.append(int(party1_vote_head.iloc[i]))
+
+    if pd.isna(party2_vote_head.iloc[i]):
+        party2_vote_list.append(0)
+    else:
+        party2_vote_list.append(int(party2_vote_head.iloc[i]))
+
+    if pd.isna(party3_vote_head.iloc[i]):
+        party3_vote_list.append(0)
+    else:
+        party3_vote_list.append(int(party3_vote_head.iloc[i]))
+
     x_coordinate_list.append(float(x_coordinate_head.iloc[i]))
     y_coordinate_list.append(float(y_coordinate_head.iloc[i]))
-
+    normalized_x_coordinate_list.append(float(x_coordinate_head.iloc[i]))
+    normalized_y_coordinate_list.append(float(y_coordinate_head.iloc[i]))
 
 print(adj_list_head[2])
 
@@ -133,9 +167,22 @@ for i in range(node_num):
                                 Dict_Trait.color: 'white'}))
 
 Graph_attribute_dict = {id_list[i]: attribute_list[i] for i in range(len(id_list))}
+x_coordinate_max = max(normalized_x_coordinate_list)
+y_coordinate_max = max(normalized_y_coordinate_list)
+x_coordinate_min = min(normalized_x_coordinate_list)
+y_coordinate_min = min(normalized_y_coordinate_list)
+x_coordinate_avg = sum(normalized_x_coordinate_list) / len(normalized_x_coordinate_list)
+y_coordinate_avg = sum(normalized_y_coordinate_list) / len(normalized_y_coordinate_list)
+for i in range(node_num):
+    normalized_x_coordinate_list[i] = (normalized_x_coordinate_list[i] - x_coordinate_min) / x_coordinate_avg
+    normalized_y_coordinate_list[i] = (normalized_x_coordinate_list[i] - y_coordinate_min) / y_coordinate_avg
+# pos_dict = {id_list[i]: (normalized_x_coordinate_list[i], normalized_y_coordinate_list[i]) for i in range(len(id_list))}
+pos_dict = {id_list[i]: (x_coordinate_list[i], y_coordinate_list[i]) for i in range(len(id_list))}
+
+print('pos_dict', pos_dict)
 
 nx.set_node_attributes(G,Graph_attribute_dict)
-nx.draw(G)
+nx.draw(G, pos_dict, node_size = size_of_node)
 plt.savefig(directory_name + region_name+'_initial_graph.png')
 plt.close()
 # print('Is G planar?\n',nx.is_planar(G))
@@ -192,10 +239,25 @@ for i in G.nodes():
         G.nodes[i][Dict_Trait.color] = 1
 
 color_state_map = {0: 'blue', 1: 'red'}
-nx.draw(G, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in G.nodes(data=True)], with_labels=True)
+nx.draw(G, pos_dict,node_size = size_of_node, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in G.nodes(data=True)], with_labels=True)
 plt.savefig(directory_name + region_name+'_test_init_part_graph.png')
 plt.close()
 
+""" #only applicable for deajeon
+daejeon_current_district_0 = [2501076,2501077,2501053,2501055,2501056,2501057,2501078,2501060,2501063,2501064,2501065,2501079,2501068,2501080,2501073,2501075]
+daejeon_current_district_1 = [2502051,2502053,2502054,2502055,2502056,2502057,2502058,2502059,2502060,2502062,2502063,2502064,2502065,2502066,2502067,2502068,2502069]
+daejeon_current_district_2 = [2503051,2503052,2503053,2503054,2503055,2503061,2503062,2503063,2503070,2503072,2503073,2503071]
+daejeon_current_district_3 = [2503056,2503057,2503059,2503060,2503074,2503064,2503065,2503066,2503067,2503068,2503069]
+daejeon_current_district_4 = [2504051,2504065,2504064,2504054,2504059]
+daejeon_current_district_5 = [2504066,2504067,2504055,2504057,2504061,2504063]
+daejeon_current_district_6 = [2505051,2505052,2505053,2505054,2505062,2505055,2505056,2505057,2505058,2505059,2505060,2505061]
+
+
+
+daejeon_current_boundary = [daejeon_current_district_1,daejeon_current_district_2,daejeon_current_district_3,daejeon_current_district_4,daejeon_current_district_5,daejeon_current_district_6]
+print('Comparison with current boundary')
+compare_before_after_graph_anneal(G, daejeon_current_boundary,min_score_list[1])
+"""
 
 # current_boundary_1 = [3011051500, 3011054500, 3011053000, 3011055100, 3011055200, 3011056000, 3011058500, 3011059000, 3011062000, 3011063000, 3011064000, 3011066500, 3011067000, 3011069500, 3011072500, 3011074000  ]
 # current_boundary_2 = [3014053500, 3014055000, 3014056000, 3014057500, 3014060500, 3014062000, 3014063000, 3014064000, 3014065500, 3014067000, 3014068000, 3014069000, 3014070000, 3014071000, 3014072000, 3014073000, 3014074000  ]
@@ -227,13 +289,24 @@ plt.close()
 #  3014068000 ,3014071000 ,3014072000, 3017055500 ,3017056000, 3017066000,
 #  3023051000]]
 # compare_before_after_graph_anneal(G, current_boundary,min_part)
-#
+
 # #min partition color
 # for i in G.nodes():
 #     if i in min_part[0]:
 #         G.nodes[i][Dict_Trait.color] = 0
 #     else:
 #         G.nodes[i][Dict_Trait.color] = 1
-# nx.draw(G, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in G.nodes(data=True)], with_labels=True)
+# nx.draw(G, node_size = size_of_node, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in G.nodes(data=True)], with_labels=True)
+# plt.savefig(directory_name + region_name+'_test_min_part_graph.png')
+# plt.close()
+#
+#min partition color
+# for i in len(id_list):
+#     if
+#     if i in min_score_list[1]:
+#         G.nodes[i][Dict_Trait.color] = 0
+#     else:
+#         G.nodes[i][Dict_Trait.color] = 1
+# nx.draw(G, node_size = size_of_node, node_color=[color_state_map[node[1][Dict_Trait.color]] for node in G.nodes(data=True)], with_labels=True)
 # plt.savefig(directory_name + region_name+'_test_min_part_graph.png')
 # plt.close()

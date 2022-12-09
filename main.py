@@ -43,7 +43,10 @@ class Dict_Trait(enum.Enum):
     party_1 = 4
     party_2 = 5
     party_3 = 6  # Party 3 is whoever that gets the most votes besides the top 2 parties, independent or other parties
-    color = 7
+    x_coord = 7
+    y_coord = 8
+    color = 9
+
 
 
 test = Precint("test")
@@ -150,6 +153,8 @@ def alt_gen_init_part(G: nx.Graph(), n: int) -> list:
     adj_list = l
     #n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list) #need to fix as it results in non-contigous partitions
     n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list,options=pymetis.Options(contig=True)) #unusable due to old version of pymetis being installed
+    # n_cuts, membership = pymetis.part_graph(n, adjacency=adj_list,options=pymetis.Options(contig=False)) #unusable due to old version of pymetis being installed
+
     nodes_part_0 = np.argwhere(np.array(membership) == 0).ravel()
     for i in range(n):
         node_temp_list = []
@@ -432,6 +437,12 @@ def calculate_part_result(G: nx.Graph, node_list: list):
     party_1_wasted_vote = 0
     party_2_wasted_vote = 0
     for node_num in node_list:
+        # ##debug
+        # print('1', part_pop, node_num, G.nodes)
+        # print('2', G.nodes[node_num])
+        # print('3', G.nodes[node_num][Dict_Trait.name])
+        # print('4', part_pop, node_num, G.nodes[node_num][Dict_Trait.pop])
+        # ##debug
         part_pop = part_pop + G.nodes[node_num][Dict_Trait.pop]
         part_vote = part_vote + G.nodes[node_num][Dict_Trait.total_votes]
         part_party_1_vote = part_party_1_vote + G.nodes[node_num][Dict_Trait.party_1]
